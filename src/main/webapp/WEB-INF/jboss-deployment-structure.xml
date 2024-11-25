@@ -1,0 +1,12 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment xmlns="urn:jboss:deployment-structure:1.2">
+        <dependencies>
+            <module name="com.ejb.salleejb" />
+            <module name="org.apache.pdfbox"/>
+            <module name="org.hibernate" />
+            <module name="org.jboss.weld.core" />
+            <module name="org.jboss.weld.spi" />
+            <module name="org.jboss.weld.api" />
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

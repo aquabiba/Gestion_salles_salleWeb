@@ -139,12 +139,11 @@
             </li>
 
             <li>
-<<<<<<< HEAD
+
                 <a href="#" id="About" class="nav-link text-white">About</a>
             </li>
             <li>
-=======
->>>>>>> origin/main
+
                 <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>

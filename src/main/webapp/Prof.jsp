@@ -142,7 +142,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Réservation</a>
+                <a href="Prof.jsp" id="Home" class="nav-link active" aria-current="page">Réservation</a>
             </li>
             <li>
                 <a href="liberation.jsp" id="liberation" class="nav-link text-white">Libération</a>

@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter("/*") // Intercepter toutes les URLs, on filtrera en fonction du chemin ensuite
+//@WebFilter("/*") // Intercepter toutes les URLs, on filtrera en fonction du chemin ensuite
 public class RoleBasedAccessFilter implements Filter {
 
     @Override

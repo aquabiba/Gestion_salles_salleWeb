@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import static java.lang.System.out;
 
-@WebServlet("/log")
+//@WebServlet("/log")
 public class AuthServlet extends HttpServlet {
 
     @EJB

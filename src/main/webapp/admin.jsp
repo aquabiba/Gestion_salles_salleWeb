@@ -39,6 +39,7 @@
       display: none;
     }
   </style>
+<<<<<<< HEAD
   <!--script>
     function toggleFields() {
       const role = document.getElementById("role").value;
@@ -52,6 +53,9 @@
       }
     }
   </script-->
+=======
+
+>>>>>>> origin/main
 </head>
 <body>
 <h1>SuperAdmin - Create User</h1>
@@ -72,12 +76,17 @@
   <input autocomplete="off" type="password" id="password" name="password" required placeholder="Enter password">
 
   <label for="role">User Role:</label>
+<<<<<<< HEAD
   <select id="role" name="role" required>
+=======
+  <select id="role" name="role"  required>
+>>>>>>> origin/main
     <option value="" disabled selected>Select role</option>
     <option value="Professeur">Professeur</option>
     <option value="Coordinnateur">Coordinnateur</option>
     <option value="ResponsableSalle">Responsable Salle</option>
   </select>
+<<<<<<< HEAD
 <%
   @SuppressWarnings("unchecked")
   List<Matiere> matieres = (List<Matiere>) session.getAttribute("matieres");
@@ -96,6 +105,11 @@
     </select>
   </div>
 
+=======
+
+    <label for="matiere" class="hidden">Matière (For Professeur):</label>
+    <input type="text" id="matiere" name="matiere"  placeholder="Enter matière">
+>>>>>>> origin/main
   <button type="submit">Create User</button>
 </form>
 </body>

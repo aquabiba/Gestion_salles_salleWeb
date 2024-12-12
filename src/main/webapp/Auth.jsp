@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hp
-  Date: 23/11/2024
-  Time: 12:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +113,6 @@
                 </div>
                 <br>
                 <button name="btnlogin" id="but1" class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-                <p>Don't have an account? <span id="create">Create one</span></p>
             </form>
         </div>
     </div>

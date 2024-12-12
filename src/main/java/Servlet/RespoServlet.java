@@ -1,5 +1,4 @@
 package Servlet;
-
 import EJB.SalleService;
 import EJB.ResponsableService ;
 import jakarta.ejb.EJB;
@@ -12,11 +11,15 @@ import jakarta.servlet.http.HttpSession;
 import model.ResponsableSalle;
 import model.Salle;
 
+
+
 import java.io.IOException;
 
 import static java.lang.System.out;
 
-@WebServlet("/respo/salleManagement")
+
+@WebServlet("/salleManagement")
+
 public class RespoServlet extends HttpServlet {
 
     @EJB
@@ -54,7 +57,10 @@ public class RespoServlet extends HttpServlet {
             int capacite = Integer.parseInt(req.getParameter("capacite"));
             int idResponsbale = (int) session.getAttribute("responsableId");
             ResponsableSalle responsableSalle = responsableService.getResponsableById(idResponsbale);
-            Salle salle = new Salle(nomSalle, localisation, typeSalle, capacite,responsableSalle);
+
+            //Boolean disponibilité = true;
+            Salle salle = new Salle(nomSalle, localisation, typeSalle, capacite, responsableSalle);
+
             try {
                 salleService.ajouterSalle(salle);
                 String message = "Salle Ajouter avec Succes ";

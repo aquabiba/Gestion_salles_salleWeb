@@ -47,6 +47,6 @@ public class AppInit {
         professeurService.ajouterProfesseur(professeur);
 
     }
-}
 
+}
 

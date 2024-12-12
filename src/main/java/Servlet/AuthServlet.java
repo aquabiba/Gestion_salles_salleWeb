@@ -48,6 +48,7 @@ public class AuthServlet extends HttpServlet {
             if (professeur != null) {
                 if (professeur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("professeur", professeur.getId_prof());
+
                     session.setAttribute("userRole","professeur");
                     resp.sendRedirect("Prof.jsp");
                 } else {
@@ -63,8 +64,12 @@ public class AuthServlet extends HttpServlet {
             if(coordinateur!=null) {
                 if(coordinateur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("coordinateurid", coordinateur.getId_coord());
+
                     session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
                     session.setAttribute("userRole","coordinateur");
+
+//                    session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
+
                     resp.sendRedirect("coord.jsp");
                 }
                 else {
@@ -81,7 +86,9 @@ public class AuthServlet extends HttpServlet {
                 if(responsableSalle.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("responsableId",responsableSalle.getId_resp());
                     session.setAttribute("responsableNom",responsableSalle.getNom_Ut());
+
                     session.setAttribute("userRole","responsableSalle");
+
                     resp.sendRedirect("Respo.jsp");
                 }
                 else {
@@ -95,4 +102,7 @@ public class AuthServlet extends HttpServlet {
 
     }
 
+
 }
+
+

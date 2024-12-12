@@ -49,10 +49,11 @@ public class createUserServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String matiere = request.getParameter("matiere");
 
         switch (role){
+
             case "Professeur":
-                String matiere = request.getParameter("matiere");
                 Matiere mat = matiereService.getMatiereByName(matiere);// problem
 
                 if (professeurService.emailExists(email)){
@@ -66,7 +67,7 @@ public class createUserServlet extends HttpServlet {
                     response.getWriter().write("<script>alert('Professeur ajouté avec succès');window.location='admin.jsp'</script>");
 
                 }
-                break;
+
 
             case "ResponsableSalle":
                 if (responsableService.emailExists(email)) {

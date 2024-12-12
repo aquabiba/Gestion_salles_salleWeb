@@ -1,5 +1,6 @@
 package Servlet;
 
+<<<<<<< HEAD
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import EJB.ResponsableService ;
@@ -48,3 +49,7 @@ public class AppInit {
 
     }
 }
+=======
+public class Appinit {
+}
+>>>>>>> 6c5e4059362a2ecdf36bf51838a0279534bf3b49

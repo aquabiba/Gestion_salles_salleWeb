@@ -1,4 +1,5 @@
 package Servlet;
+<<<<<<< HEAD
 import EJB.SalleService;
 import EJB.ResponsableService ;
 import jakarta.ejb.EJB;
@@ -80,3 +81,8 @@ public class RespoServlet extends HttpServlet {
         }
     }
 }
+=======
+
+public class RespoServlet {
+}
+>>>>>>> 6c5e4059362a2ecdf36bf51838a0279534bf3b49

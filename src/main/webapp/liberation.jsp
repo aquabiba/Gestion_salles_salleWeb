@@ -84,13 +84,13 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" id="Home" class="nav-link active" aria-current="page">Accueil</a>
+        <a href="Prof.jsp" id="Home" class="nav-link active" aria-current="page">Réservation</a>
       </li>
       <li>
-        <a href="#" id="About" class="nav-link text-white">À propos</a>
+        <a href="#" id="About" class="nav-link text-white">Libération</a>
       </li>
       <li>
-        <a href="login.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+        <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
       </li>
     </ul>
   </div>

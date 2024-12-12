@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hp
-  Date: 23/11/2024
-  Time: 12:19
-  To change this template use File | Settings | File Templates.
---%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -144,7 +137,10 @@
                 <a href="#" id="Home" class="nav-link active" aria-current="page">Filières</a>
             </li>
             <li>
-                <a href="#" id="About" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
+                <a href="Emploi.jsp" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
+            </li>
+            <li>
+                <a href="matiere.jsp" id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
             </li>
             <li>
                 <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
@@ -153,7 +149,7 @@
 
     </div>
 
-    <form class="reservation-container" action="filiere.jsp" method="post">
+    <form class="reservation-container" action="filiere" method="post">
         <div class="reservation-container">
             <h2>Coordinateur de Filière</h2>
             <form>
@@ -165,6 +161,19 @@
                     <label for="effectif">Effectif</label>
                     <input type="number" id="effectif" name="effectif" placeholder="Entrez l'effectif" required>
                 </div>
+                <div class="form-group">
+                    <label for="niveau">Niveau</label>
+                    <select id="niveau" name="effectif" class="form-control" required>
+                        <option value="" disabled selected>Choisissez un niveau</option>
+                        <option value="1">1ère année</option>
+                        <option value="2">2ème année</option>
+                        <option value="3">3ème année</option>
+                        <option value="3">4ème année</option>
+                        <option value="3">5ème année</option>
+
+                    </select>
+                </div>
+
                 <div class="form-buttons">
                     <button type="submit" class="add">Ajouter</button>
                     <button type="reset" class="reset">Supprimer</button>

@@ -49,6 +49,7 @@
             background-color: #0d6efd;
         }
 
+
         #container{
             display: flex;
             justify-content:flex-start;
@@ -142,6 +143,14 @@
             width: 12.5%;
         }
 
+        .form-group input,
+        .form-group select {
+            width: 50%; /* Réduction de la largeur à 50% */
+            margin-left: 500px ;/* Centrer les champs */
+            padding: 5px; /* Réduire l'espacement interne */
+            font-size: 13px; /* Réduire la taille de la police */
+        }
+
 
     </style>
 </head>
@@ -153,14 +162,17 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
+            <li >
+                <a href="coord.jsp"  class="nav-link text-white" >Filières</a>
+            </li>
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Filières</a>
+                <a href="#" id="emploi" onclick="changecolor()" class="nav-link active">Emplois du Temps</a>
             </li>
             <li>
-                <a href="#" id="About" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
+                <a href="matiere.jsp" id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
             </li>
             <li>
-                <a href="http://localhost:8080/salleWEB-1.0-SNAPSHOT/log" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
 
@@ -168,6 +180,29 @@
 </div>
 
 <h2 class="text-center mt-4">Emploi du Temps</h2>
+<form action="emploi" method="post">
+    <!-- Saisie du nom de la filière -->
+    <div class="form-group">
+        <label for="niveau">Filiére</label>
+        <select id="filiére" name="filiere" class="form-control" required>
+            <option value="" disabled selected>Choisissez un filiére</option>
+            <option value="1">JEE</option>
+            <option value="2">Oracle</option>
+            <option value="3">.NET</option>
+        </select>
+    </div>
+
+    <!-- Combo box pour le niveau -->
+    <div class="form-group">
+        <label for="niveau">Niveau</label>
+        <select id="niveau" name="niveau" class="form-control" required>
+            <option value="" disabled selected>Choisissez un niveau</option>
+            <option value="1">1ère année</option>
+            <option value="2">2ème année</option>
+            <option value="3">3ème année</option>
+        </select>
+    </div>
+
 
 
 
@@ -181,7 +216,6 @@
         <th class="day-column">Jeudi</th>
         <th class="day-column">Vendredi</th>
         <th class="day-column">Samedi</th>
-        <th class="day-column">Dimanche</th>
     </tr>
     </thead>
     <tbody>
@@ -194,7 +228,6 @@
         <td>${emploiJeudi8}</td>
         <td>${emploiVendredi8}</td>
         <td>${emploiSamedi8}</td>
-        <td>${emploiDimanche8}</td>
     </tr>
     <tr>
         <td>9h - 10h</td>
@@ -204,7 +237,6 @@
         <td>${emploiJeudi9}</td>
         <td>${emploiVendredi9}</td>
         <td>${emploiSamedi9}</td>
-        <td>${emploiDimanche9}</td>
     </tr>
     <tr>
         <td>10h - 11h</td>
@@ -214,7 +246,6 @@
         <td>${emploiJeudi10}</td>
         <td>${emploiVendredi10}</td>
         <td>${emploiSamedi10}</td>
-        <td>${emploiDimanche10}</td>
     </tr>
     <tr>
         <td>11h - 12h</td>
@@ -224,7 +255,6 @@
         <td>${emploiJeudi11}</td>
         <td>${emploiVendredi11}</td>
         <td>${emploiSamedi11}</td>
-        <td>${emploiDimanche11}</td>
     </tr>
 
     <%-- Display time slots from 2:00 PM to 6:00 PM --%>
@@ -236,7 +266,6 @@
         <td>${emploiJeudi14}</td>
         <td>${emploiVendredi14}</td>
         <td>${emploiSamedi14}</td>
-        <td>${emploiDimanche14}</td>
     </tr>
     <tr>
         <td>15h - 16h</td>
@@ -246,7 +275,6 @@
         <td>${emploiJeudi15}</td>
         <td>${emploiVendredi15}</td>
         <td>${emploiSamedi15}</td>
-        <td>${emploiDimanche15}</td>
     </tr>
     <tr>
         <td>16h - 17h</td>
@@ -256,7 +284,6 @@
         <td>${emploiJeudi16}</td>
         <td>${emploiVendredi16}</td>
         <td>${emploiSamedi16}</td>
-        <td>${emploiDimanche16}</td>
     </tr>
     <tr>
         <td>17h - 18h</td>
@@ -266,7 +293,6 @@
         <td>${emploiJeudi17}</td>
         <td>${emploiVendredi17}</td>
         <td>${emploiSamedi17}</td>
-        <td>${emploiDimanche17}</td>
     </tr>
 
     </tbody>
@@ -277,7 +303,7 @@
     <button class="btn btn-primary btn-create" onclick="window.location.href='create_schedule.jsp'">Créer un emploi du temps</button>
 </div>
 
-
+</form>
 
 </body>
 </html>

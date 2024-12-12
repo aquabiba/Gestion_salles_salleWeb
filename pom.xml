@@ -17,7 +17,9 @@
         <junit.version>5.11.0-M2</junit.version>
     </properties>
 
+
     <dependencies>
+
         <dependency>
             <groupId>ensa.JEE</groupId>
             <artifactId>salleEJB</artifactId>
@@ -54,6 +56,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.1.1</version>
+            <scope>provided</scope>
+            </dependency>
     </dependencies>
 
     <build>

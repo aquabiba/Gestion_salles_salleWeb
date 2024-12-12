@@ -117,28 +117,34 @@
             background-color: #d32f2f;
         }
     </style>
+    <%
+        String Responom=(String) session.getAttribute("responsableNom") ;
+    %>
 </head>
 <body>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Responsable</span>
+            <span class="fs-4">Bonjour <%=Responom%>
+            </span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <a href="Home_respo_sal.jsp"  class="nav-link text-white">Home</a>
+            </li>
+
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Home</a>
+                <a href="#" id="Gestion_sal" class="nav-link active" aria-current="page">Gestion Des Salles</a>
             </li>
+
             <li>
-                <a href="#" id="About" class="nav-link text-white">About</a>
-            </li>
-            <li>
-                <a href="login.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
     </div>
 
-    <form class="reservation-container" action="roomManagement.jsp" method="post">
+    <form class="reservation-container" action="salleManagement" method="post">
         <h2>Gestion des Salles</h2>
         <div class="form-group">
             <label for="nomSalle">Nom de la Salle</label>
@@ -162,10 +168,16 @@
             <input type="number" id="capacite" name="capacite" placeholder="Entrez la capacité de la salle" min="1" required>
         </div>
         <div class="form-buttons">
-            <button type="submit" class="add">Enregistrer</button>
-            <button type="reset" class="reset">Supprimer</button>
+            <button  class="add" name="enregistrer">Enregistrer</button>
+            <button  class="reset" name="supprimer">Supprimer</button>
         </div>
     </form>
 </div>
+<c:if test="${not empty message}">
+    <script type="text/javascript">
+        // Affichage du message dans une fenêtre modale (alerte)
+        alert("${message}");
+    </script>
+</c:if>
 </body>
 </html>

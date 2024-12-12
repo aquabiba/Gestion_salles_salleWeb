@@ -27,6 +27,7 @@ public class createUserServlet extends HttpServlet {
     private ResponsableService responsableService;
     @EJB
     private MatiereService matiereService;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
@@ -37,10 +38,10 @@ public class createUserServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String matiere = request.getParameter("matiere");
 
         switch (role){
             case "professeur":
-                String matiere = request.getParameter("matiere");
                 Matiere mat = matiereService.getMatiereByName(matiere);
                 Professeur prof = new Professeur(firstName,lastName,email,password,phone,mat);
                 professeurService.ajouterProfesseur(prof);

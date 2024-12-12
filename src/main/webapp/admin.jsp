@@ -35,19 +35,7 @@
       display: none;
     }
   </style>
-  <script>
-    function toggleFields() {
-      const role = document.getElementById("role").value;
-      const matiereField = document.getElementById("matiereField");
 
-      // Show "matière" field only if "Professeur" is selected
-      if (role === "Professeur") {
-        matiereField.classList.remove("hidden");
-      } else {
-        matiereField.classList.add("hidden");
-      }
-    }
-  </script>
 </head>
 <body>
 <h1>SuperAdmin - Create User</h1>
@@ -68,19 +56,15 @@
   <input type="password" id="password" name="password" required placeholder="Enter password">
 
   <label for="role">User Role:</label>
-  <select id="role" name="role" onchange="toggleFields()" required>
+  <select id="role" name="role"  required>
     <option value="" disabled selected>Select role</option>
     <option value="Professeur">Professeur</option>
     <option value="Coordinnateur">Coordinnateur</option>
     <option value="ResponsableSalle">Responsable Salle</option>
   </select>
 
-  <!-- Additional field for "matière" -->
-  <div id="matiereField" class="hidden">
-    <label for="matiere">Matière (For Professeur):</label>
+    <label for="matiere" class="hidden">Matière (For Professeur):</label>
     <input type="text" id="matiere" name="matiere"  placeholder="Enter matière">
-  </div>
-
   <button type="submit">Create User</button>
 </form>
 </body>

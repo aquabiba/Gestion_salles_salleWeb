@@ -54,7 +54,9 @@
             padding: 30px;
             border-radius: 10px;
         }
-
+        .modify {
+            background-color: darkorange;
+        }
         .reservation-container h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -89,7 +91,8 @@
 
         .form-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
+            padding-left: 20px;
         }
 
         .form-buttons button {
@@ -104,6 +107,11 @@
         .form-buttons button.add {
             background-color: #4CAF50;
             color: white;
+            margin-left: 30px;
+        }
+        .form-buttons button.modify {
+            color: white;
+            margin-left: 30px;
         }
 
         .form-buttons button.add:hover {
@@ -112,6 +120,7 @@
 
         .form-buttons button.reset {
             background-color: #f44336;
+            margin-left: 30px;
             color: white;
         }
 
@@ -135,9 +144,11 @@
             <li class="nav-item">
                 <a href="#" id="Home" class="nav-link active" aria-current="page">Réservation</a>
             </li>
-
             <li>
-                <a href="login.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="liberation.jsp" id="liberation" class="nav-link text-white">Libération</a>
+            </li>
+            <li>
+                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
             </li>
         </ul>
 
@@ -145,25 +156,49 @@
 
     <form class="reservation-container" action="reservation.jsp" method="post">
         <h2>Formulaire de Réservation</h2>
+        <!-- Combobox pour Filière -->
         <div class="form-group">
             <label for="filiere">Filière</label>
-            <input type="text" id="filiere" name="filiere" placeholder="Entrez la filière" required>
+            <select id="filiere" name="filiere" class="form-control" required>
+                <option value="" disabled selected>Choisissez une filière</option>
+<%--                <%--%>
+<%--                    while (filiereRs != null && filiereRs.next()) {--%>
+<%--                %>--%>
+<%--                <option value="<%= filiereRs.getInt("id") %>"><%= filiereRs.getString("nom") %></option>--%>
+<%--                <%--%>
+<%--                    }--%>
+<%--                %>--%>
+            </select>
         </div>
+
+        <!-- Combobox pour Matière -->
         <div class="form-group">
             <label for="matiere">Matière</label>
-            <input type="text" id="matiere" name="matiere" placeholder="Entrez la matière" required>
+            <select id="matiere" name="matiere" class="form-control" required>
+                <option value="" disabled selected>Choisissez une matière</option>
+<%--                <%--%>
+<%--                    while (matiereRs != null && matiereRs.next()) {--%>
+<%--                %>--%>
+<%--                <option value="<%= matiereRs.getInt("id") %>"><%= matiereRs.getString("nom") %></option>--%>
+<%--                <%--%>
+<%--                    }--%>
+<%--                %>--%>
+            </select>
         </div>
+
+        <!-- Combobox pour Créneaux -->
         <div class="form-group">
-            <label for="sujet">Sujet</label>
-            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
-        </div>
-        <div class="form-group">
-            <label for="salle">Salle</label>
-            <input type="text" id="salle" name="salle" placeholder="Entrez la salle" required>
-        </div>
-        <div class="form-group">
-            <label for="creneaux">Créneaux</label>
-            <input type="time" id="creneaux" name="creneaux" required>
+            <label >Créneaux</label>
+            <select  name="creneaux" class="form-control" required>
+                <option value="" disabled selected>Choisissez un créneau</option>
+<%--                <%--%>
+<%--                    while (creneauxRs != null && creneauxRs.next()) {--%>
+<%--                %>--%>
+<%--                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>--%>
+<%--                <%--%>
+<%--                    }--%>
+<%--                %>--%>
+            </select>
         </div>
         <div class="form-group">
             <label for="dateDebut">Date de Début</label>
@@ -173,9 +208,32 @@
             <label for="dateFin">Date de Fin</label>
             <input type="date" id="dateFin" name="dateFin" required>
         </div>
+        <div class="form-group">
+            <label >Salle Disponible dans ce Créneaux</label>
+            <select  name="salle" class="form-control" required>
+                <option value="" disabled selected>Choisissez une salle </option>
+                <%--                <%--%>
+                <%--                    while (creneauxRs != null && creneauxRs.next()) {--%>
+                <%--                %>--%>
+                <%--                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>--%>
+                <%--                <%--%>
+                <%--                    }--%>
+                <%--                %>--%>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
+        </div>
+
+
+
         <div class="form-buttons">
-            <button type="submit" class="add">Ajouter Réservation</button>
-            <button type="reset" class="reset">Libérer Réservation</button>
+            <button type="submit" class="add">Ajouter </button>
+            <button type="reset" class="reset">Libérer </button>
+            <button type="submit" class="modify">Modifier </button>
+
         </div>
     </form>
 

@@ -90,7 +90,7 @@
         <a href="#" id="About" class="nav-link text-white">À propos</a>
       </li>
       <li>
-        <a href="login.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+        <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
       </li>
     </ul>
   </div>

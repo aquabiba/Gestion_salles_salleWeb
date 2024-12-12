@@ -85,7 +85,6 @@
             color: white;
         }
     </style>
-    <script src="scripts/login.js"></script>
 </head>
 <body>
 <main>

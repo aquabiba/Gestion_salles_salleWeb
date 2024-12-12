@@ -133,12 +133,12 @@
                 <a href="#" id="About" class="nav-link text-white">About</a>
             </li>
             <li>
-                <a href="login.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
     </div>
 
-    <form class="reservation-container" action="roomManagement.jsp" method="post">
+    <form class="reservation-container" action="salleManagement" method="post">
         <h2>Gestion des Salles</h2>
         <div class="form-group">
             <label for="nomSalle">Nom de la Salle</label>

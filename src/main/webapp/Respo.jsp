@@ -173,11 +173,6 @@
         </div>
     </form>
 </div>
-<c:if test="${not empty message}">
-    <script type="text/javascript">
-        // Affichage du message dans une fenêtre modale (alerte)
-        alert("${message}");
-    </script>
-</c:if>
+
 </body>
 </html>

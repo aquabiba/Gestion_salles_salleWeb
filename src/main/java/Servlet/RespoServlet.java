@@ -12,6 +12,7 @@ import model.ResponsableSalle;
 import model.Salle;
 
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.System.out;
 
@@ -28,13 +29,10 @@ public class RespoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
+//        HttpSession session = req.getSession();
+//        List<Salle> salles=salleService.getAllSalles();
+//        session.setAttribute("salles", salles);
         resp.sendRedirect("Respo.jsp");
-
-
-
-        HttpSession session = req.getSession();
-
-
     }
 
     @Override
@@ -54,9 +52,12 @@ public class RespoServlet extends HttpServlet {
             int idResponsbale = (int) session.getAttribute("responsableId");
             ResponsableSalle responsableSalle = responsableService.getResponsableById(idResponsbale);
             Boolean disponibilité = true;
-            Salle salle = new Salle(nomSalle, localisation, typeSalle, disponibilité, capacite, responsableSalle);
+            Salle salle = new Salle(nomSalle, localisation, typeSalle, capacite, responsableSalle);
+
             try {
                 salleService.ajouterSalle(salle);
+                List<Salle> salles=salleService.getAllSalles();
+                session.setAttribute("salles", salles);
                 String message = "Salle Ajouter avec Succes ";
                 req.setAttribute("message", message);
                 req.getRequestDispatcher("Respo.jsp").forward(req,resp);

@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.Salle" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,16 +130,17 @@
             text-align: left;
         }
     </style>
-<%--    <%--%>
-<%--        String Responom=(String) session.getAttribute("responsableNom") ;--%>
-<%--    %>--%>
+    <%
+        String Responom=(String) session.getAttribute("responsableNom") ;
+        List<Salle> salles= (List<Salle>) session.getAttribute("salles") ;
+    %>
 </head>
 <body>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-<%--            <span class="fs-4">Bonjour <%=Responom%>
-            </span>--%>
+            <span class="fs-4">Bonjour <%=Responom%>
+            </span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
@@ -162,14 +165,14 @@
             <th>Capacité</th>
 
         </tr>
+        <%for(Salle salle:salles){%>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-
+            <th><%=salle.getNom_sal()%></th>
+            <th><%=salle.getLocalisation_sal()%></th>
+            <th><%=salle.getType_sal()%></th>
+            <th><%=salle.getCapacite_sal()%></th>
         </tr>
-
+        <%  }%>
     </table>
 
 

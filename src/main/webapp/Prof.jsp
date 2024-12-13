@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Enseignant Interface</title>
     <style>
@@ -133,110 +132,110 @@
 
     </style>
 </head>
-<body>
-<div id="container">
-    <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Prof Name</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Réservation</a>
-            </li>
-            <li>
-                <a href="liberation.jsp" id="liberation" class="nav-link text-white">Libération</a>
-            </li>
-            <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
-            </li>
-        </ul>
+<%--<body>--%>
+<%--<div id="container">--%>
+<%--    <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">--%>
+<%--        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">--%>
+<%--            <span class="fs-4">Prof Name</span>--%>
+<%--        </a>--%>
+<%--        <hr>--%>
+<%--        <ul class="nav nav-pills flex-column mb-auto">--%>
+<%--            <li class="nav-item">--%>
+<%--                <a href="#" id="Home" class="nav-link active" aria-current="page">Réservation</a>--%>
+<%--            </li>--%>
+<%--            <li>--%>
+<%--                <a href="liberation.jsp" id="liberation" class="nav-link text-white">Libération</a>--%>
+<%--            </li>--%>
+<%--            <li>--%>
+<%--                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
 
-    </div>
+<%--    </div>--%>
 
-    <form class="reservation-container" action="reservation.jsp" method="post">
-        <h2>Formulaire de Réservation</h2>
-        <!-- Combobox pour Filière -->
-        <div class="form-group">
-            <label for="filiere">Filière</label>
-            <select id="filiere" name="filiere" class="form-control" required>
-                <option value="" disabled selected>Choisissez une filière</option>
-<%--                <%--%>
-<%--                    while (filiereRs != null && filiereRs.next()) {--%>
-<%--                %>--%>
-<%--                <option value="<%= filiereRs.getInt("id") %>"><%= filiereRs.getString("nom") %></option>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-            </select>
-        </div>
+<%--    <form class="reservation-container" action="reservation.jsp" method="post">--%>
+<%--        <h2>Formulaire de Réservation</h2>--%>
+<%--        <!-- Combobox pour Filière -->--%>
+<%--        <div class="form-group">--%>
+<%--            <label for="filiere">Filière</label>--%>
+<%--            <select id="filiere" name="filiere" class="form-control" required>--%>
+<%--                <option value="" disabled selected>Choisissez une filière</option>--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    while (filiereRs != null && filiereRs.next()) {&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <option value="<%= filiereRs.getInt("id") %>"><%= filiereRs.getString("nom") %></option>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
-        <!-- Combobox pour Matière -->
-        <div class="form-group">
-            <label for="matiere">Matière</label>
-            <select id="matiere" name="matiere" class="form-control" required>
-                <option value="" disabled selected>Choisissez une matière</option>
-<%--                <%--%>
-<%--                    while (matiereRs != null && matiereRs.next()) {--%>
-<%--                %>--%>
-<%--                <option value="<%= matiereRs.getInt("id") %>"><%= matiereRs.getString("nom") %></option>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-            </select>
-        </div>
+<%--        <!-- Combobox pour Matière -->--%>
+<%--        <div class="form-group">--%>
+<%--            <label for="matiere">Matière</label>--%>
+<%--            <select id="matiere" name="matiere" class="form-control" required>--%>
+<%--                <option value="" disabled selected>Choisissez une matière</option>--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    while (matiereRs != null && matiereRs.next()) {&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <option value="<%= matiereRs.getInt("id") %>"><%= matiereRs.getString("nom") %></option>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
-        <!-- Combobox pour Créneaux -->
-        <div class="form-group">
-            <label >Créneaux</label>
-            <select  name="creneaux" class="form-control" required>
-                <option value="" disabled selected>Choisissez un créneau</option>
-<%--                <%--%>
-<%--                    while (creneauxRs != null && creneauxRs.next()) {--%>
-<%--                %>--%>
-<%--                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>--%>
-<%--                <%--%>
-<%--                    }--%>
-<%--                %>--%>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="dateDebut">Date de Début</label>
-            <input type="date" id="dateDebut" name="dateDebut" required>
-        </div>
-        <div class="form-group">
-            <label for="dateFin">Date de Fin</label>
-            <input type="date" id="dateFin" name="dateFin" required>
-        </div>
-        <div class="form-group">
-            <label >Salle Disponible dans ce Créneaux</label>
-            <select  name="salle" class="form-control" required>
-                <option value="" disabled selected>Choisissez une salle </option>
-                <%--                <%--%>
-                <%--                    while (creneauxRs != null && creneauxRs.next()) {--%>
-                <%--                %>--%>
-                <%--                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>--%>
-                <%--                <%--%>
-                <%--                    }--%>
-                <%--                %>--%>
-            </select>
-        </div>
+<%--        <!-- Combobox pour Créneaux -->--%>
+<%--        <div class="form-group">--%>
+<%--            <label >Créneaux</label>--%>
+<%--            <select  name="creneaux" class="form-control" required>--%>
+<%--                <option value="" disabled selected>Choisissez un créneau</option>--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    while (creneauxRs != null && creneauxRs.next()) {&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
+<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--            </select>--%>
+<%--        </div>--%>
+<%--        <div class="form-group">--%>
+<%--            <label for="dateDebut">Date de Début</label>--%>
+<%--            <input type="date" id="dateDebut" name="dateDebut" required>--%>
+<%--        </div>--%>
+<%--        <div class="form-group">--%>
+<%--            <label for="dateFin">Date de Fin</label>--%>
+<%--            <input type="date" id="dateFin" name="dateFin" required>--%>
+<%--        </div>--%>
+<%--        <div class="form-group">--%>
+<%--            <label >Salle Disponible dans ce Créneaux</label>--%>
+<%--            <select  name="salle" class="form-control" required>--%>
+<%--                <option value="" disabled selected>Choisissez une salle </option>--%>
+<%--                &lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--                &lt;%&ndash;                    while (creneauxRs != null && creneauxRs.next()) {&ndash;%&gt;--%>
+<%--                &lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--                &lt;%&ndash;                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>&ndash;%&gt;--%>
+<%--                &lt;%&ndash;                &lt;%&ndash;%>--%>
+<%--                &lt;%&ndash;                    }&ndash;%&gt;--%>
+<%--                &lt;%&ndash;                %>&ndash;%&gt;--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
-        <div class="form-group">
-            <label for="sujet">Sujet</label>
-            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
-        </div>
+<%--        <div class="form-group">--%>
+<%--            <label for="sujet">Sujet</label>--%>
+<%--            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>--%>
+<%--        </div>--%>
 
 
+<%--        <div class="form-buttons">--%>
+<%--            <button type="submit" class="add">Ajouter </button>--%>
+<%--            <button type="reset" class="reset">Libérer </button>--%>
+<%--            <button type="submit" class="modify">Modifier </button>--%>
 
-        <div class="form-buttons">
-            <button type="submit" class="add">Ajouter </button>
-            <button type="reset" class="reset">Libérer </button>
-            <button type="submit" class="modify">Modifier </button>
+<%--        </div>--%>
+<%--    </form>--%>
 
-        </div>
-    </form>
-
-</div>
-</body>
+<%--</div>--%>
+<%--</body>--%>
+<h1>Fuck You Quazdar</h1>
 </html>

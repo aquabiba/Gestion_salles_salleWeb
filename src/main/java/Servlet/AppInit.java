@@ -2,15 +2,13 @@ package Servlet;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import EJB.SalleService ;
 import EJB.ResponsableService ;
 import EJB.MatiereService;
 import EJB.CoordinateurService;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
-import model.Coordinateur;
-import model.Matiere;
-import model.Professeur;
-import model.ResponsableSalle;
+import model.*;
 import EJB.ProfesseurService ;
 
 @Startup
@@ -24,6 +22,8 @@ public class AppInit {
     private ResponsableService responsableService ;
     @EJB
     private ProfesseurService professeurService;
+    @EJB
+    private SalleService salleService;
 
     @PostConstruct
     public  void init() {
@@ -40,7 +40,8 @@ public class AppInit {
 
         Professeur professeur=new Professeur("Quazdar","Imade","Quazdar.Imade@edu.uiz.ac.ma","1234","0654163",matiere1);
 
-        // Persister les données
+        Salle salle=new Salle("F12","Bloc F","salle TD",50,responsableSalle);
+        salleService.ajouterSalle(salle);
 
         matiere.ajouterMatiere(matiere1);
         matiere.ajouterMatiere(matiere2);

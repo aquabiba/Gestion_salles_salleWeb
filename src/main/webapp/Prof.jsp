@@ -134,10 +134,11 @@
     </style>
 </head>
 <body>
+<% String nomprof= (String) session.getAttribute("NomProf");%>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Prof Name</span>
+            <span class="fs-4"><%=nomprof%>%></span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">

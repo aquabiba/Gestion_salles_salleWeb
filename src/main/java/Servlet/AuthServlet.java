@@ -48,6 +48,7 @@ public class AuthServlet extends HttpServlet {
             if (professeur != null) {
                 if (professeur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("professeur", professeur.getId_prof());
+                    session.setAttribute("NomProf",professeur.getNom_Ut());
 
                     session.setAttribute("userRole","professeur");
                     resp.sendRedirect("Prof.jsp");

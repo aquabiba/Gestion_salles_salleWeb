@@ -7,11 +7,9 @@ import EJB.MatiereService;
 import EJB.CoordinateurService;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
-import model.Coordinateur;
-import model.Matiere;
-import model.Professeur;
-import model.ResponsableSalle;
+import model.*;
 import EJB.ProfesseurService ;
+import EJB.SalleService;
 
 @Startup
 @Singleton
@@ -24,6 +22,8 @@ public class AppInit {
     private ResponsableService responsableService ;
     @EJB
     private ProfesseurService professeurService;
+    @EJB
+    private SalleService salleService;
 
     @PostConstruct
     public  void init() {
@@ -39,12 +39,15 @@ public class AppInit {
         Matiere matiere2 = new Matiere("Anglais", 20,  coordinateur1);
 
         Professeur professeur=new Professeur("Quazdar","Imade","Quazdar.Imade@edu.uiz.ac.ma","1234","0654163",matiere1);
-
+        Salle salle1 = new Salle("F12","Block F 2 eme etage","Cours",60,responsableSalle);
+        Salle salle2 = new Salle("H11","Block H 1 eme etage","TP",70,responsableSalle);
         // Persister les données
 
         matiere.ajouterMatiere(matiere1);
         matiere.ajouterMatiere(matiere2);
         professeurService.ajouterProfesseur(professeur);
+        salleService.ajouterSalle(salle1);
+        salleService.ajouterSalle(salle2);
 
     }
 

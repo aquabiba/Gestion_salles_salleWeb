@@ -131,17 +131,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="Home_respo_sal.jsp"  class="nav-link text-white">Home</a>
+                <a href="Respo_home.jsp" class="nav-link text-white">Home</a>
             </li>
 
             <li class="nav-item">
                 <a href="#" id="Gestion_sal" class="nav-link active" aria-current="page">Gestion Des Salles</a>
             </li>
 
-            <li>
-
-                <a href="#" id="About" class="nav-link text-white">About</a>
-            </li>
             <li>
 
                 <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>

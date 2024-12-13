@@ -13,8 +13,11 @@ import jakarta.servlet.http.HttpSession;
 import model.Coordinateur;
 import model.Professeur;
 import model.ResponsableSalle;
+import EJB.SalleService ;
+import model.Salle;
 
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.System.out;
 
@@ -27,6 +30,8 @@ public class AuthServlet extends HttpServlet {
     private CoordinateurService coordinateurService;
     @EJB
     private ResponsableService responsableService;
+    @EJB
+    private SalleService salleService;
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,6 +45,7 @@ public class AuthServlet extends HttpServlet {
         String login_password = req.getParameter("password_login");
 
         HttpSession session = req.getSession(); // Crée une nouvelle session si elle n'existe pas
+        List<Salle> salles = salleService.getAllSalles();
 
 
         try {
@@ -48,10 +54,12 @@ public class AuthServlet extends HttpServlet {
             if (professeur != null) {
                 if (professeur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("professeur", professeur.getId_prof());
+
                     session.setAttribute("NomProf",professeur.getNom_Ut());
 
                     session.setAttribute("userRole","professeur");
                     resp.sendRedirect("Prof.jsp");
+
                 } else {
                     out.println("<h2>Mot de Passe Incorrecte !</h2>");
                 }
@@ -85,6 +93,7 @@ public class AuthServlet extends HttpServlet {
             ResponsableSalle responsableSalle=responsableService.getResponsableByEmail(login_email);
             if(responsableSalle!=null) {
                 if(responsableSalle.getPassword_Ut().equals(login_password)) {
+                    session.setAttribute("salles",salles);
                     session.setAttribute("responsableId",responsableSalle.getId_resp());
                     session.setAttribute("responsableNom",responsableSalle.getNom_Ut());
 

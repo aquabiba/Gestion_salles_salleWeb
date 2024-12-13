@@ -95,7 +95,7 @@
                    style="color: brown; text-align: center; font-weight: bolder; font-size: 30px;">
                     Login to your account
                 </p>
-                <p>Enter your email address</p>
+                <p>Enter your email address </p>
                 <div class="form-floating">
                     <input name="login_email" id="emailinput" type="email" class="form-control" placeholder="name@example.com">
                     <label for="emailinput">Email address</label>

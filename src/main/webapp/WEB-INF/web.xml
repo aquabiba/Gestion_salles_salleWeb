@@ -7,6 +7,16 @@
     <display-name>ProfServlet</display-name>
     <display-name>CoordServlet</display-name>
 
+    <servlet>
+        <display-name>AuthServlet</display-name>
+        <servlet-name>log</servlet-name>
+        <servlet-class>Servlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>log</servlet-name>
+        <url-pattern>/log</url-pattern>
+
+    </servlet-mapping>
 <!--
     <servlet>
 =======

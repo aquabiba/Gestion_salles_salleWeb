@@ -4,6 +4,7 @@ import EJB.CoordinateurService;
 import EJB.ProfesseurService;
 import EJB.ResponsableService;
 import jakarta.ejb.EJB;
+import jakarta.inject.Scope;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,6 +23,7 @@ import java.util.List;
 import static java.lang.System.out;
 
 @WebServlet("/log")
+
 public class AuthServlet extends HttpServlet {
 
     @EJB
@@ -73,11 +75,9 @@ public class AuthServlet extends HttpServlet {
             if(coordinateur!=null) {
                 if(coordinateur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("coordinateurid", coordinateur.getId_coord());
-
                     session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
-                    session.setAttribute("userRole","coordinateur");
+                    session.setAttribute("coorMail",coordinateur.getEmail_Ut());
 
-//                    session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
 
                     resp.sendRedirect("coord.jsp");
                 }
@@ -87,6 +87,7 @@ public class AuthServlet extends HttpServlet {
             }
         }
         catch (Exception e) {
+            e.printStackTrace();
             out.println("<h2>Somethink is wrong !</h2>");
         }
         try {

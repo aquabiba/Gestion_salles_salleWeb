@@ -1,4 +1,4 @@
-
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,10 +149,9 @@
 
     </div>
 
-    <form class="reservation-container" action="filiere" method="post">
+    <form class="reservation-container" action="mat" method="post">
         <div class="reservation-container">
             <h2 class="text-center">Saisie d'une Matière</h2>
-            <form action="traiterMatiere" method="post" class="mt-4">
                 <!-- Libellé de la matière -->
                 <div class="form-group mb-3">
                     <label for="libelle">Libellé de la Matière</label>
@@ -164,8 +163,8 @@
                     <input type="number" id="totalHeures" name="totalHeures" class="form-control" placeholder="Entrez le total des heures" min="1" required>
                 </div>
                 <!-- Bouton de soumission -->
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-            </form>
+                <button type="submit" name="enregistrer" class="btn btn-primary">Enregistrer</button>
+
         </div>
     </form>
 

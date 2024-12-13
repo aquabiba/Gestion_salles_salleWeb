@@ -140,7 +140,7 @@
                 <a href="Emploi.jsp" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
             </li>
             <li>
-                <a href="matiere.jsp" id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
+                <a href="matiere.jsp"  id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
             </li>
             <li>
                 <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
@@ -149,7 +149,7 @@
 
     </div>
 
-    <form class="reservation-container" action="filiere" method="post">
+    <form class="reservation-container" action="coord" method="post">
         <div class="reservation-container">
             <h2>Coordinateur de Filière</h2>
             <form>
@@ -163,7 +163,7 @@
                 </div>
                 <div class="form-group">
                     <label for="niveau">Niveau</label>
-                    <select id="niveau" name="effectif" class="form-control" required>
+                    <select id="niveau" name="niveau" class="form-control" required>
                         <option value="" disabled selected>Choisissez un niveau</option>
                         <option value="1">1ère année</option>
                         <option value="2">2ème année</option>
@@ -175,8 +175,8 @@
                 </div>
 
                 <div class="form-buttons">
-                    <button type="submit" class="add">Ajouter</button>
-                    <button type="reset" class="reset">Supprimer</button>
+                    <button type="submit" class="add" name="ajouter">Ajouter</button>
+                    <button type="reset" class="reset" name="supprimer">Supprimer</button>
                 </div>
             </form>
         </div>

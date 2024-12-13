@@ -180,15 +180,15 @@
 </div>
 
 <h2 class="text-center mt-4">Emploi du Temps</h2>
-<form action="emploi" method="post">
+<form id="Schedule" action="emploi" method="post">
     <!-- Saisie du nom de la filière -->
     <div class="form-group">
         <label for="niveau">Filiére</label>
         <select id="filiére" name="filiere" class="form-control" required>
             <option value="" disabled selected>Choisissez un filiére</option>
-            <option value="1">JEE</option>
-            <option value="2">Oracle</option>
-            <option value="3">.NET</option>
+            <option value="1">Génie Info</option>
+            <option value="2">Génie Idustrielle</option>
+            <option value="3">Génie Mécanique</option>
         </select>
     </div>
 
@@ -302,7 +302,24 @@
 <div class="text-center">
     <button class="btn btn-primary btn-create" onclick="window.location.href='create_schedule.jsp'">Créer un emploi du temps</button>
 </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
 
+            // Capture the table
+            const pdf = new jsPDF('p', 'pt', 'a4'); // Portrait, Points, A4 size
+            const source = document.getElementById('Schedule');
+
+            pdf.html(source, {
+                callback: function (doc) {
+                    doc.save('<%=%>.pdf'); // Save as PDF
+                },
+                x: 10,
+                y: 10
+            });
+        }
+    </script>
 </form>
 
 </body>

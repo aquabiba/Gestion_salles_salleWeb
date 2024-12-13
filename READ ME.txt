@@ -1,0 +1,27 @@
+Exemple de code pour lire un fichier PDF depuis le système de fichiers et le persister :
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+@Service
+public class DocumentPDFService {
+
+    @Autowired
+    private DocumentPDFRepository documentPDFRepository; // Repository JPA
+
+    @Transactional
+    public void sauvegarderPdf(String nomFichier) throws IOException {
+        byte[] contenu = Files.readAllBytes(Paths.get(nomFichier));
+        DocumentPDF doc = new DocumentPDF("MonPDF", contenu);
+        documentPDFRepository.save(doc);
+    }
+
+    public DocumentPDF recupererPdf(Long id) {
+        return documentPDFRepository.findById(id).orElse(null);
+    }
+}

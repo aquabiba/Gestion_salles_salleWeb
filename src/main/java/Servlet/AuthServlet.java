@@ -10,15 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Coordinateur;
-import model.Professeur;
-import model.ResponsableSalle;
+import model.*;
 import EJB.SalleService ;
-import model.Salle;
-
+import EJB.MatiereService ;
 import java.io.IOException;
 import java.util.List;
-
+import EJB.ReservationService ;
+import EJB.CreneauService ;
+import EJB.FiliereService ;
 import static java.lang.System.out;
 
 @WebServlet("/log")
@@ -32,7 +31,14 @@ public class AuthServlet extends HttpServlet {
     private ResponsableService responsableService;
     @EJB
     private SalleService salleService;
-
+    @EJB
+    private MatiereService matiereService;
+    @EJB
+    private FiliereService filiereService;
+    @EJB
+    private ReservationService reservationService;
+    @EJB
+    private CreneauService creneauService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -46,15 +52,24 @@ public class AuthServlet extends HttpServlet {
 
         HttpSession session = req.getSession(); // Crée une nouvelle session si elle n'existe pas
         List<Salle> salles = salleService.getAllSalles();
-
+        List<Matiere> matiereList = matiereService.getAllMatieres();
+        List<Filiere> filiereList = filiereService.getAllFilieres();
+//        String creneau_choisis=session.getAttribute("creneau_choisis").toString();
+        List<Creneau> creneaux=creneauService.getCreneaux() ;
 
         try {
             Professeur professeur = professeurService.getProfesseurByEmail(login_email);
-
+            List<Reservation> reservations = reservationService.getReservationByProf(professeur);
             if (professeur != null) {
                 if (professeur.getPassword_Ut().equals(login_password)) {
+                    session.setAttribute("salles",salles);
+                    session.setAttribute("creneaux",creneaux);
+                    session.setAttribute("matieres",matiereList);
+                    session.setAttribute("filieres",filiereList);
+                    session.setAttribute("reservations",reservations);
                     session.setAttribute("professeur", professeur.getId_prof());
-                    resp.sendRedirect("liberation.jsp");
+                    session.setAttribute("prof_name",professeur.getNom_Ut());
+                    resp.sendRedirect("ListReservation.jsp");
                 } else {
                     out.println("<h2>Mot de Passe Incorrecte !</h2>");
                 }

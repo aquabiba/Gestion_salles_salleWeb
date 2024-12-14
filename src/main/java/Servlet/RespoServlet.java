@@ -55,6 +55,7 @@ public class RespoServlet extends HttpServlet {
             Salle salle = new Salle(nomSalle, localisation, typeSalle, capacite, responsableSalle);
 
             try {
+
                 salleService.ajouterSalle(salle);
                 List<Salle> salles=salleService.getAllSalles();
                 session.setAttribute("salles", salles);

@@ -1,3 +1,5 @@
+<%@ page import="model.Salle, model.Matiere, model.Filiere, java.util.List" %>
+<%@ page import="model.Creneau" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,110 +134,126 @@
 
     </style>
 </head>
-<%--<body>--%>
-<%--<div id="container">--%>
-<%--    <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">--%>
-<%--        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">--%>
-<%--            <span class="fs-4">Prof Name</span>--%>
-<%--        </a>--%>
-<%--        <hr>--%>
-<%--        <ul class="nav nav-pills flex-column mb-auto">--%>
-<%--            <li class="nav-item">--%>
-<%--                <a href="#" id="Home" class="nav-link active" aria-current="page">Réservation</a>--%>
-<%--            </li>--%>
-<%--            <li>--%>
-<%--                <a href="liberation.jsp" id="liberation" class="nav-link text-white">Libération</a>--%>
-<%--            </li>--%>
-<%--            <li>--%>
-<%--                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>--%>
-<%--            </li>--%>
-<%--        </ul>--%>
+<body>
+<%
+    List<Salle> salles= (List<Salle>) session.getAttribute("salles");
+    List<Matiere> matieres= (List<Matiere>) session.getAttribute("matieres");
+    List<Filiere> filieres= (List<Filiere>) session.getAttribute("filieres");
+    List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneaux") ;
+    String prof_name=(String) session.getAttribute("prof_name") ;
+%>
+<div id="container">
+    <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">Prof <%=prof_name%>></span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li  >
+                <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" id="Home" class="nav-link active" aria-current="page">Ajouter Réservation</a>
+            </li>
+            <li>
+                <a href="liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
+            </li>
+            <li>
+                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+            </li>
+        </ul>
 
-<%--    </div>--%>
+    </div>
 
-<%--    <form class="reservation-container" action="reservation.jsp" method="post">--%>
-<%--        <h2>Formulaire de Réservation</h2>--%>
-<%--        <!-- Combobox pour Filière -->--%>
-<%--        <div class="form-group">--%>
-<%--            <label for="filiere">Filière</label>--%>
-<%--            <select id="filiere" name="filiere" class="form-control" required>--%>
-<%--                <option value="" disabled selected>Choisissez une filière</option>--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    while (filiereRs != null && filiereRs.next()) {&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <option value="<%= filiereRs.getInt("id") %>"><%= filiereRs.getString("nom") %></option>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--            </select>--%>
-<%--        </div>--%>
+    <form class="reservation-container" action="reservation" method="post">
+        <h2>Formulaire de Réservation</h2>
+        <div class="form-group">
+            <label for="filiere">Filière</label>
+            <select id="filiere" name="filiere" class="form-control" required>
+                <option value="" disabled selected>Choisissez une filière</option>
+                <% for(Filiere filiere:filieres){%>
+                    <option value="<%=filiere.getLibelle_fil()%>"><%=filiere.getLibelle_fil()%></option>
+                <%}%>
+            </select>
+        </div>
 
-<%--        <!-- Combobox pour Matière -->--%>
-<%--        <div class="form-group">--%>
-<%--            <label for="matiere">Matière</label>--%>
-<%--            <select id="matiere" name="matiere" class="form-control" required>--%>
-<%--                <option value="" disabled selected>Choisissez une matière</option>--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    while (matiereRs != null && matiereRs.next()) {&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <option value="<%= matiereRs.getInt("id") %>"><%= matiereRs.getString("nom") %></option>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--            </select>--%>
-<%--        </div>--%>
+        <!-- Combobox pour Matière -->
+        <div class="form-group">
+            <label for="matiere">Matière</label>
+            <select id="matiere" name="matiere" class="form-control" required>
+                <option value="" disabled selected>Choisissez une matière</option>
+                <% for(Matiere matiere:matieres){%>
+                    <option><%=matiere.getLibelle_mat()%></option>
+                <%}%>
+            </select>
+        </div>
 
-<%--        <!-- Combobox pour Créneaux -->--%>
-<%--        <div class="form-group">--%>
-<%--            <label >Créneaux</label>--%>
-<%--            <select  name="creneaux" class="form-control" required>--%>
-<%--                <option value="" disabled selected>Choisissez un créneau</option>--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    while (creneauxRs != null && creneauxRs.next()) {&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--&lt;%&ndash;                    }&ndash;%&gt;--%>
-<%--&lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--            </select>--%>
-<%--        </div>--%>
-<%--        <div class="form-group">--%>
-<%--            <label for="dateDebut">Date de Début</label>--%>
-<%--            <input type="date" id="dateDebut" name="dateDebut" required>--%>
-<%--        </div>--%>
-<%--        <div class="form-group">--%>
-<%--            <label for="dateFin">Date de Fin</label>--%>
-<%--            <input type="date" id="dateFin" name="dateFin" required>--%>
-<%--        </div>--%>
-<%--        <div class="form-group">--%>
-<%--            <label >Salle Disponible dans ce Créneaux</label>--%>
-<%--            <select  name="salle" class="form-control" required>--%>
-<%--                <option value="" disabled selected>Choisissez une salle </option>--%>
-<%--                &lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--                &lt;%&ndash;                    while (creneauxRs != null && creneauxRs.next()) {&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                <option value="<%= creneauxRs.getInt("id") %>"><%= creneauxRs.getString("heure") %></option>&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                &lt;%&ndash;%>--%>
-<%--                &lt;%&ndash;                    }&ndash;%&gt;--%>
-<%--                &lt;%&ndash;                %>&ndash;%&gt;--%>
-<%--            </select>--%>
-<%--        </div>--%>
+        <!-- Combobox pour Créneaux -->
+        <div class="form-group">
+            <label >Créneaux</label>
+            <select  name="creneaux" class="form-control" required>
+                <option value="" disabled selected>Choisissez un créneau</option>
+                <option>8:30 - 10:20 </option>
+                <option>10:40 - 12:30 </option>
+                <option>2:30 - 4:20 </option>
+                <option>4:40 - 6:30 </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dateDebut">Date de Début</label>
+            <input type="date" id="dateDebut" name="dateDebut" required>
+        </div>
+        <div class="form-group">
+            <label for="dateFin">Date de Fin</label>
+            <input type="date" id="dateFin" name="dateFin" required>
+        </div>
 
-<%--        <div class="form-group">--%>
-<%--            <label for="sujet">Sujet</label>--%>
-<%--            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>--%>
-<%--        </div>--%>
+        <div class="form-group">
+            <label >Jour</label>
+            <select  name="jour" class="form-control" required>
+                <option value="" disabled selected>Choisissez un jour </option>
+                <option>Lundi</option>
+                <option>Mardi</option>
+                <option>Mercredi</option>
+                <option>jeudi</option>
+                <option>vendredi</option>
+                <option>samedi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label >Salle Disponible dans ce Créneaux</label>
+            <select  name="salle" class="form-control" required>
+                <option value="" disabled selected>Choisissez une salle </option>
+                      <% for(Creneau creneau:creneaux){%>
+                        <option><%=creneau.getSalle().getNom_sal()%></option>
+                      <%}%>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
+        </div>
 
 
-<%--        <div class="form-buttons">--%>
-<%--            <button type="submit" class="add">Ajouter </button>--%>
-<%--            <button type="reset" class="reset">Libérer </button>--%>
-<%--            <button type="submit" class="modify">Modifier </button>--%>
+        <div class="form-buttons">
+            <button type="submit" class="add" name="ajouter">Ajouter </button>
 
-<%--        </div>--%>
-<%--    </form>--%>
 
-<%--</div>--%>
-<%--</body>--%>
-<h1>Fuck You Quazdar</h1>
+        </div>
+        <%
+            String message= (String) session.getAttribute("message");
+            if(message!=null){
+                session.removeAttribute("message");
+        %>
+        <script>
+            alert("<%= message %>");
+        </script>
+
+        <%}%>
+    </form>
+
+</div>
+</body>
 </html>

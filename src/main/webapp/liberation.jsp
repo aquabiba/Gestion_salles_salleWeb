@@ -1,3 +1,5 @@
+<%@ page import="model.Reservation" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,20 +76,27 @@
     }
   </style>
 </head>
+<%
+  String prof_name=(String) session.getAttribute("prof_name") ;
+  List<Reservation> reservations= (List<Reservation>) session.getAttribute("reservations") ;
+%>
 <body>
 <div id="container">
   <!-- Sidebar -->
   <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <span class="fs-4">Professeur</span>
+      <span class="fs-4">Prof <%=prof_name%></span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="Prof.jsp" id="Home" class="nav-link active" aria-current="page">Réservation</a>
+      <li  >
+        <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
       </li>
       <li>
-        <a href="#" id="About" class="nav-link text-white">Libération</a>
+        <a href="Prof.jsp" id="Home" class="nav-link text-white" >Ajouter Réservation</a>
+      </li>
+      <li class="nav-item" >
+        <a href="liberation.jsp" id="liberation"  class="nav-link active"  >Libération</a>
       </li>
       <li>
         <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
@@ -104,55 +113,49 @@
         <th>ID</th>
         <th>Filière</th>
         <th>Matière</th>
-        <th>Sujet</th>
         <th>Salle</th>
         <th>Créneaux</th>
         <th>Date Début</th>
         <th>Date Fin</th>
       </tr>
       </thead>
+      <% for(Reservation reservation:reservations){%>
+
       <tbody>
-
+        <th><%=reservation.getId_res()%></th>
+        <th><%=reservation.getFiliere().getLibelle_fil()%></th>
+        <th><%=reservation.getProfesseur().getMatiere().getLibelle_mat()%></th>
+        <th><%=reservation.getCreneau().getSalle().getNom_sal()%></th>
+        <th><%=reservation.getCreneau().getDesc_creneau()%></th>
+        <th><%=reservation.getInfos_res().getDateDebut()%></th>
+        <th><%=reservation.getInfos_res().getDateFin()%></th>
       </tbody>
-    </table>
+      <% }%>
 
-    <!-- Formulaire pour libération -->
+    </table>
+    <form action="liberation" method="post">
     <div class="form-container">
-      <button type="submit" onclick="liberationDefinitive()">Libération Définitive</button>
-      <button type="submit" class="danger" onclick="liberationExceptionnelle()">Libération Exceptionnelle</button>
-      <input type="datetime-local" id="startDate" name="startDate" placeholder="Date de Début">
-      <input type="datetime-local" id="endDate" name="endDate" placeholder="Date de Fin">
+      <input type="text" id="reservationId" name="idReservation" placeholder="ID" >
+      <input type="date" id="startDate" name="dateDebut" placeholder="Date de Début">
+      <input type="date" id="endDate" name="dateFin" placeholder="Date de Fin">
+      <button type="submit" onclick="liberationDefinitive()" name="liberationDef">Libération Définitive</button>
+      <button type="submit" class="danger" onclick="liberationExceptionnelle()" name="liberationExce">Libération Exceptionnelle</button>
+
     </div>
+    <%
+      if(session.getAttribute("message")!=null){
+    %>
+      <script>
+        alert("<%= session.getAttribute("message") %>");
+      </script>
+
+    <%
+        session.removeAttribute("message");
+      }%>
+    </form>
   </div>
 </div>
 
-<script>
-  function liberationDefinitive() {
-    const selected = document.querySelector('input[name="selectedReservation"]:checked');
-    if (!selected) {
-      alert("Veuillez sélectionner une réservation !");
-      return;
-    }
-    const reservationId = selected.value;
-    window.location.href = `liberationDefinitive.jsp?id=${reservationId}`;
-  }
 
-  function liberationExceptionnelle() {
-    const selected = document.querySelector('input[name="selectedReservation"]:checked');
-    if (!selected) {
-      alert("Veuillez sélectionner une réservation !");
-      return;
-    }
-    const reservationId = selected.value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-
-    if (!startDate || !endDate) {
-      alert("Veuillez remplir la durée de début et de fin !");
-      return;
-    }
-    window.location.href = `liberationExceptionnelle.jsp?id=${reservationId}&startDate=${startDate}&endDate=${endDate}`;
-  }
-</script>
 </body>
 </html>

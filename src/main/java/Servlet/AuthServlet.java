@@ -4,8 +4,10 @@ import EJB.CoordinateurService;
 import EJB.ProfesseurService;
 import EJB.ResponsableService;
 import EJB.FiliereService;
+import EJB.CreneauService;
+import EJB.MatiereService;
+import EJB.ReservationService;
 import jakarta.ejb.EJB;
-import jakarta.inject.Scope;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +36,12 @@ public class AuthServlet extends HttpServlet {
     private SalleService salleService;
     @EJB
     private FiliereService filiereService;
-
+    @EJB
+    private CreneauService creneauService;
+    @EJB
+    private MatiereService matiereService;
+    @EJB
+    private ReservationService reservationService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -49,6 +56,9 @@ public class AuthServlet extends HttpServlet {
         HttpSession session = req.getSession(); // Crée une nouvelle session si elle n'existe pas
         List<Salle> salles = salleService.getAllSalles();
         List<Filiere> filieres = filiereService.getAllFilieres();
+        List<Creneau> creneaux = creneauService.getCreneaux();
+        List<Matiere> matieres = matiereService.getAllMatieres();
+        List<Reservation> reservations = reservationService.getAllReservations();
 
         try {
             Professeur professeur = professeurService.getProfesseurByEmail(login_email);
@@ -56,11 +66,14 @@ public class AuthServlet extends HttpServlet {
             if (professeur != null) {
                 if (professeur.getPassword_Ut().equals(login_password)) {
                     session.setAttribute("professeur", professeur.getId_prof());
-
+                    session.setAttribute("filieres", filieres);
+                    session.setAttribute("creneau", creneaux);
+                    session.setAttribute("matieres", matieres);
+                    session.setAttribute("reservations", reservations);
                     session.setAttribute("NomProf",professeur.getNom_Ut());
 
                     session.setAttribute("userRole","professeur");
-                    resp.sendRedirect("Prof.jsp");
+                    resp.sendRedirect("ListReservation.jsp");
 
                 } else {
                     out.println("<h2>Mot de Passe Incorrecte !</h2>");

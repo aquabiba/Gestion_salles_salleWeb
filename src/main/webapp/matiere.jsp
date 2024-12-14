@@ -134,7 +134,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link text-white" >Filières</a>
+                <a href="${pageContext.request.contextPath}/coord"  class="nav-link text-white" >Filières</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/empl" id="emploi"  class="nav-link text-white">Emplois du Temps</a>

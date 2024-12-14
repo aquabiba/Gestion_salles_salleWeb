@@ -1,5 +1,5 @@
-<%@ page import="model.Salle, model.Matiere, model.Filiere, java.util.List" %>
-<%@ page import="model.Creneau" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,15 +136,7 @@
 </head>
 <body>
 <%
-    @SuppressWarnings("unchecked")
-    List<Salle> salles= (List<Salle>) session.getAttribute("salles");
-    @SuppressWarnings("unchecked")
-    List<Matiere> matieres= (List<Matiere>) session.getAttribute("matieres");
-    @SuppressWarnings("unchecked")
-    List<Filiere> filieres= (List<Filiere>) session.getAttribute("filieres");
-    @SuppressWarnings("unchecked")
-    List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneau") ;
-    String prof_name=(String) session.getAttribute("NomProf") ;
+    String prof_name=(String) session.getAttribute("prof_name") ;
 %>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
@@ -153,11 +145,11 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li  >
-                <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
-            </li>
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Ajouter Réservation</a>
+                <a href="#" id="Home" class="nav-link active" aria-current="page">Liste Réservations</a>
+            </li>
+            <li >
+                <a href="Prof.jsp"   class="nav-link text-white" >Ajouter Réservations</a>
             </li>
             <li>
                 <a href="liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
@@ -169,94 +161,56 @@
 
     </div>
 
-    <form class="reservation-container" action="reservation" method="post">
-        <h2>Formulaire de Réservation</h2>
-        <div class="form-group">
-            <label for="filiere">Filière</label>
-            <select id="filiere" name="filiere" class="form-control" required>
-                <option value="" disabled selected>Choisissez une filière</option>
-                <% for(Filiere filiere:filieres){%>
-                <option value="<%=filiere.getLibelle_fil()%>"><%=filiere.getLibelle_fil()%></option>
-                <%}%>
-            </select>
-        </div>
+    <div class="container" style="margin-left: 400px; margin-top: 50px;">
+        <h2>Réservations Disponibles</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Salle</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
+                <th>créaneau</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                @SuppressWarnings("unchecked")
+                List<Reservation> reservations = (List<Reservation>) session.getAttribute("reservations");
 
-        <!-- Combobox pour Matière -->
-        <div class="form-group">
-            <label for="matiere">Matière</label>
-            <select id="matiere" name="matiere" class="form-control" required>
-                <option value="" disabled selected>Choisissez une matière</option>
-                <% for(Matiere matiere:matieres){%>
-                <option><%=matiere.getLibelle_mat()%></option>
-                <%}%>
-            </select>
-        </div>
+                if (reservations != null && !reservations.isEmpty()) {
+                    for (Reservation reservation : reservations) {
+            %>
+            <tr>
+                <td><%=reservation.getId_res() %></td>
+                <%
+                    Creneau creaneau=reservation.getCreneau() ;
+                %>
+                <td><%= reservation.getCreneau() != null && (reservation.getCreneau()).getSalle() != null
+                        ? creaneau.getSalle().getNom_sal()
+                        : "Salle non définie" %></td>
+                <td><%= reservation.getInfos_res().getDateDebut() %></td>
+                <td><%= reservation.getInfos_res().getDateFin() %></td>
+                <td><%= reservation.getCreneau().getDesc_creneau()%></td>
+                <% if(reservation.getInfos_res().isStatus_res()){ %>
+                <td style="color: #4CAF50"><%=reservation.getInfos_res().isStatus_res()%></td>
+                <% }else {%>
+                <td style="color: #d32f2f"><%=reservation.getInfos_res().isStatus_res()%></td>
+                <% }%>
 
-        <!-- Combobox pour Créneaux -->
-        <div class="form-group">
-            <label >Créneaux</label>
-            <select  name="creneaux" class="form-control" required>
-                <option value="" disabled selected>Choisissez un créneau</option>
-                <option>8:30 - 10:20 </option>
-                <option>10:40 - 12:30 </option>
-                <option>2:30 - 4:20 </option>
-                <option>4:40 - 6:30 </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="dateDebut">Date de Début</label>
-            <input type="date" id="dateDebut" name="dateDebut" required>
-        </div>
-        <div class="form-group">
-            <label for="dateFin">Date de Fin</label>
-            <input type="date" id="dateFin" name="dateFin" required>
-        </div>
-
-        <div class="form-group">
-            <label >Jour</label>
-            <select  name="jour" class="form-control" required>
-                <option value="" disabled selected>Choisissez un jour </option>
-                <option>Lundi</option>
-                <option>Mardi</option>
-                <option>Mercredi</option>
-                <option>jeudi</option>
-                <option>vendredi</option>
-                <option>samedi</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label >Salle Disponible dans ce Créneaux</label>
-            <select  name="salle" class="form-control" required>
-                <option value="" disabled selected>Choisissez une salle </option>
-                <% for(Creneau creneau:creneaux){%>
-                <option><%=creneau.getSalle().getNom_sal()%></option>
-                <%}%>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="sujet">Sujet</label>
-            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
-        </div>
-
-
-        <div class="form-buttons">
-            <button type="submit" class="add" name="ajouter">Ajouter </button>
-
-
-        </div>
-        <%
-            String message= (String) session.getAttribute("message");
-            if(message!=null){
-                session.removeAttribute("message");
-        %>
-        <script>
-            alert("<%= message %>");
-        </script>
-
-        <%}%>
-    </form>
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            <tr>
+                <td colspan="5" class="text-center">Aucune réservation disponible.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 </body>

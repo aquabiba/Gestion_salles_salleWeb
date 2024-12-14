@@ -163,9 +163,9 @@
             <span class="fs-4">Coordinateur Name</span>
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
+        <ul class="nav nav-pills flex-column mb-auto" >
             <li>
-                <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link text-white" >Filières</a>
+                <a href="${pageContext.request.contextPath}/coord" class="nav-link text-white" >Filières</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/empl" id="emploi"  class="nav-link active">Emplois du Temps</a>

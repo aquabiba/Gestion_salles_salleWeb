@@ -6,13 +6,16 @@ import EJB.SalleService ;
 import EJB.ResponsableService ;
 import EJB.MatiereService;
 import EJB.CoordinateurService;
-import EJB.FiliereService;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import model.*;
 import EJB.ProfesseurService ;
-import EJB.SalleService;
-
+import EJB.FiliereService ;
+import EJB.LibDefService ;
+import EJB.ReservationService ;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import EJB.CreneauService ;
 @Startup
 @Singleton
 public class AppInit {
@@ -28,6 +31,13 @@ public class AppInit {
     private SalleService salleService;
     @EJB
     private FiliereService filiereService;
+    @EJB
+    private ReservationService reservationService;
+    @EJB
+    private CreneauService creneauService;
+    @EJB
+    private LibDefService libDefService;
+
 
     @PostConstruct
     public  void init() {
@@ -40,25 +50,38 @@ public class AppInit {
 
         // Données pour la table Matiere
         Matiere matiere1 = new Matiere("JEE", 10, coordinateur1);
-        Matiere matiere2 = new Matiere("Anglais", 20,  coordinateur1);
+        Matiere matiere2 = new Matiere("Oracle", 20,  coordinateur1);
+
+        libDefService.LiberationAuto() ;
+
+        //filieres
+        Filiere filiere1=new Filiere("Info2","2éme année",60,coordinateur1);
+        Filiere filiere2=new Filiere("Meca3","3éme année",40,coordinateur1);
+
 
         Professeur professeur=new Professeur("Quazdar","Imade","Quazdar.Imade@edu.uiz.ac.ma","1234","0654163",matiere1);
 
-        Salle salle1 = new Salle("F12","Block F 2 eme etage","Cours",60,responsableSalle);
-        Salle salle2 = new Salle("H11","Block H 1 eme etage","TP",70,responsableSalle);
-        // Persister les données
-        Filiere fil1 = new Filiere("Genie informatique","CI2",64,coordinateur1);
-        Filiere fil2 = new Filiere("Genie electrique","CI2",30,coordinateur1);
+        Salle salle1=new Salle("F12","Bloc F","salle TD",25,responsableSalle);
+        Salle salle2=new Salle("H11","Bloc H","salle Cours",60,responsableSalle);
 
-        filiereService.ajouterFiliere(fil1);
-        filiereService.ajouterFiliere(fil2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        InfosRes infosRes = new InfosRes("Lundi", LocalDate.parse("12/01/2024", formatter), LocalDate.parse("12/01/2025", formatter));
+        Creneau creneau=new Creneau("8:30 - 10:20",false,salle1);
+        Creneau creneau1=new Creneau("2:30 - 4:20",true,salle2);
+        //Reservation
+        Reservation reservation1=new Reservation(filiere1,infosRes,professeur,creneau);
+        Reservation reservation2=new Reservation(filiere1,infosRes,professeur,creneau1);
+
+        salleService.ajouterSalle(salle1);
+        salleService.ajouterSalle(salle2);
+        filiereService.ajouterFiliere(filiere1);
+        filiereService.ajouterFiliere(filiere2);
         matiere.ajouterMatiere(matiere1);
         matiere.ajouterMatiere(matiere2);
         professeurService.ajouterProfesseur(professeur);
-        salleService.ajouterSalle(salle1);
-        salleService.ajouterSalle(salle2);
-
+        creneauService.addCreneau(creneau);
+        creneauService.addCreneau(creneau1);
+        reservationService.ajouterReservation(reservation2);
+        reservationService.ajouterReservation(reservation1);
     }
-
 }
-

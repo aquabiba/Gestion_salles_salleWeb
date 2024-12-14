@@ -43,6 +43,7 @@ public class EmploiServlet extends HttpServlet {
         String filiereName = req.getParameter("filiere");
         Filiere fil = filiereService.getFiliereByName(filiereName);
 
+
         if (filiereName == null || filiereName.isEmpty()) {
             resp.getWriter().write("<script>alert('Nom de filière manquant');window.location='Emploi.jsp';</script>");
             return;

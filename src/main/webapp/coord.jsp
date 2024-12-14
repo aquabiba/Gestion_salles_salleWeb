@@ -133,7 +133,7 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li>
+            <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link active" >Filières</a>
             </li>
             <li>

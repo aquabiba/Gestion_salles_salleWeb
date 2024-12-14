@@ -6,6 +6,7 @@ import EJB.SalleService ;
 import EJB.ResponsableService ;
 import EJB.MatiereService;
 import EJB.CoordinateurService;
+import EJB.FiliereService;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import model.*;
@@ -25,6 +26,8 @@ public class AppInit {
     private ProfesseurService professeurService;
     @EJB
     private SalleService salleService;
+    @EJB
+    private FiliereService filiereService;
 
     @PostConstruct
     public  void init() {
@@ -44,8 +47,11 @@ public class AppInit {
         Salle salle1 = new Salle("F12","Block F 2 eme etage","Cours",60,responsableSalle);
         Salle salle2 = new Salle("H11","Block H 1 eme etage","TP",70,responsableSalle);
         // Persister les données
+        Filiere fil1 = new Filiere("Genie informatique","CI2",64,coordinateur1);
+        Filiere fil2 = new Filiere("Genie electrique","CI2",30,coordinateur1);
 
-
+        filiereService.ajouterFiliere(fil1);
+        filiereService.ajouterFiliere(fil2);
         matiere.ajouterMatiere(matiere1);
         matiere.ajouterMatiere(matiere2);
         professeurService.ajouterProfesseur(professeur);

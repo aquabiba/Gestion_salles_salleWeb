@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="model.Filiere" %>
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: hp
   Date: 23/11/2024
@@ -162,17 +164,17 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li >
-                <a href="coord.jsp"  class="nav-link text-white" >Filières</a>
-            </li>
             <li class="nav-item">
-                <a href="#" id="emploi" onclick="changecolor()" class="nav-link active">Emplois du Temps</a>
+                <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link active" aria-current="page">Filières</a>
             </li>
             <li>
-                <a href="matiere.jsp" id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
+                <a href="${pageContext.request.contextPath}/empl" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
             </li>
             <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
 
@@ -180,127 +182,80 @@
 </div>
 
 <h2 class="text-center mt-4">Emploi du Temps</h2>
-<form id="Schedule" action="emploi" method="post">
+<form id="Schedule" action="empl" method="post">
     <!-- Saisie du nom de la filière -->
     <div class="form-group">
-        <label for="niveau">Filiére</label>
-        <select id="filiére" name="filiere" class="form-control" required>
-            <option value="" disabled selected>Choisissez un filiére</option>
-            <option value="1">Génie Info</option>
-            <option value="2">Génie Idustrielle</option>
-            <option value="3">Génie Mécanique</option>
+        <label for="filiere">Filière</label>
+        <select id="filiere" name="filiere" class="form-control" required>
+            <option value="" disabled selected>Choisissez une filière</option>
+            <%
+                @SuppressWarnings("unchecked")
+                List<Filiere> filieres = (List<Filiere>) session.getAttribute("filieres");
+                if (filieres != null) {
+                    for (Filiere filiere : filieres) {
+            %>
+            <option value="<%= filiere.getId_fil() %>"><%= filiere.getLibelle_fil() %></option>
+            <%
+                    }
+                }
+            %>
+
+
         </select>
+        <input type="submit" name="uploadEmploi" value="importer Emploi">
     </div>
 
-    <!-- Combo box pour le niveau -->
-    <div class="form-group">
-        <label for="niveau">Niveau</label>
-        <select id="niveau" name="niveau" class="form-control" required>
-            <option value="" disabled selected>Choisissez un niveau</option>
-            <option value="1">1ère année</option>
-            <option value="2">2ème année</option>
-            <option value="3">3ème année</option>
-        </select>
-    </div>
+    <table class="table table-bordered mt-4">
+        <thead>
+        <tr>
+            <th class="time-column">Horaire</th>
+            <th class="day-column">Lundi</th>
+            <th class="day-column">Mardi</th>
+            <th class="day-column">Mercredi</th>
+            <th class="day-column">Jeudi</th>
+            <th class="day-column">Vendredi</th>
+            <th class="day-column">Samedi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            @SuppressWarnings("unchecked")
+            Map<String, Map<String, Object[]>> timetable = (Map<String, Map<String, Object[]>>) session.getAttribute("timetable");
+        %>
+        <%-- Définissez les créneaux horaires disponibles --%>
+        <c:forEach var="hour" items="${['8h30 - 10h20', '10h40 - 12h30', '14h30 - 16h20', '16h40 - 18h30']}">
+            <tr>
+                <td>${hour}</td>
+                    <%-- Boucle sur les jours de la semaine --%>
+                <c:forEach var="day" items="${['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']}">
+                    <td>
+                        <c:choose>
+                            <%-- Si des données existent pour ce créneau et ce jour, affichez-les --%>
+                            <c:when test="${not empty timetable[day][hour]}">
+                                <c:set var="data" value="${timetable[day][hour]}" />
+                                Matière : ${data[0].libelleMat}<br />
+                                Professeur : ${data[1].nom}<br />
+                                Salle : ${data[2].nom}
+                            </c:when>
+                            <%-- Sinon, affichez un tiret pour indiquer qu'il n'y a pas de données --%>
+                            <c:otherwise>
+                                -
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-
-
-
-<table class="table table-bordered mt-4">
-    <thead>
-    <tr>
-        <th class="time-column">Horaire</th>
-        <th class="day-column">Lundi</th>
-        <th class="day-column">Mardi</th>
-        <th class="day-column">Mercredi</th>
-        <th class="day-column">Jeudi</th>
-        <th class="day-column">Vendredi</th>
-        <th class="day-column">Samedi</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%-- Display time slots from 8:00 to 12:00 --%>
-    <tr>
-        <td>8h - 9h</td>
-        <td>${emploiLundi8}</td>
-        <td>${emploiMardi8}</td>
-        <td>${emploiMercredi8}</td>
-        <td>${emploiJeudi8}</td>
-        <td>${emploiVendredi8}</td>
-        <td>${emploiSamedi8}</td>
-    </tr>
-    <tr>
-        <td>9h - 10h</td>
-        <td>${emploiLundi9}</td>
-        <td>${emploiMardi9}</td>
-        <td>${emploiMercredi9}</td>
-        <td>${emploiJeudi9}</td>
-        <td>${emploiVendredi9}</td>
-        <td>${emploiSamedi9}</td>
-    </tr>
-    <tr>
-        <td>10h - 11h</td>
-        <td>${emploiLundi10}</td>
-        <td>${emploiMardi10}</td>
-        <td>${emploiMercredi10}</td>
-        <td>${emploiJeudi10}</td>
-        <td>${emploiVendredi10}</td>
-        <td>${emploiSamedi10}</td>
-    </tr>
-    <tr>
-        <td>11h - 12h</td>
-        <td>${emploiLundi11}</td>
-        <td>${emploiMardi11}</td>
-        <td>${emploiMercredi11}</td>
-        <td>${emploiJeudi11}</td>
-        <td>${emploiVendredi11}</td>
-        <td>${emploiSamedi11}</td>
-    </tr>
-
-    <%-- Display time slots from 2:00 PM to 6:00 PM --%>
-    <tr>
-        <td>14h - 15h</td>
-        <td>${emploiLundi14}</td>
-        <td>${emploiMardi14}</td>
-        <td>${emploiMercredi14}</td>
-        <td>${emploiJeudi14}</td>
-        <td>${emploiVendredi14}</td>
-        <td>${emploiSamedi14}</td>
-    </tr>
-    <tr>
-        <td>15h - 16h</td>
-        <td>${emploiLundi15}</td>
-        <td>${emploiMardi15}</td>
-        <td>${emploiMercredi15}</td>
-        <td>${emploiJeudi15}</td>
-        <td>${emploiVendredi15}</td>
-        <td>${emploiSamedi15}</td>
-    </tr>
-    <tr>
-        <td>16h - 17h</td>
-        <td>${emploiLundi16}</td>
-        <td>${emploiMardi16}</td>
-        <td>${emploiMercredi16}</td>
-        <td>${emploiJeudi16}</td>
-        <td>${emploiVendredi16}</td>
-        <td>${emploiSamedi16}</td>
-    </tr>
-    <tr>
-        <td>17h - 18h</td>
-        <td>${emploiLundi17}</td>
-        <td>${emploiMardi17}</td>
-        <td>${emploiMercredi17}</td>
-        <td>${emploiJeudi17}</td>
-        <td>${emploiVendredi17}</td>
-        <td>${emploiSamedi17}</td>
-    </tr>
-
-    </tbody>
-</table>
 </div>
-
+<%
+        String nomFil = (String) session.getAttribute("filiereName");
+        String niv = (String) session.getAttribute("niveau");
+%>
 <div class="text-center">
-    <button class="btn btn-primary btn-create" onclick="window.location.href='create_schedule.jsp'">Créer un emploi du temps</button>
+    <button class="btn btn-primary btn-create" onclick="downloadPDF()">Créer un emploi du temps</button>
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
@@ -313,7 +268,7 @@
 
             pdf.html(source, {
                 callback: function (doc) {
-                    doc.save('<%=%>.pdf'); // Save as PDF
+                    doc.save('<%=nomFil%>_<%=niv%>%>.pdf'); // Save as PDF
                 },
                 x: 10,
                 y: 10

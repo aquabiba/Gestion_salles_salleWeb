@@ -137,13 +137,13 @@
                 <a href="#" id="Home" class="nav-link active" aria-current="page">Filières</a>
             </li>
             <li>
-                <a href="Emploi.jsp" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
+                <a href="${pageContext.request.contextPath}/empl" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
             </li>
             <li>
-                <a href="matiere.jsp"  id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
             </li>
             <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
 
@@ -165,11 +165,11 @@
                     <label for="niveau">Niveau</label>
                     <select id="niveau" name="niveau" class="form-control" required>
                         <option value="" disabled selected>Choisissez un niveau</option>
-                        <option value="1">1ère année</option>
-                        <option value="2">2ème année</option>
-                        <option value="3">3ème année</option>
-                        <option value="3">4ème année</option>
-                        <option value="3">5ème année</option>
+                        <option value="1">1ere annee</option>
+                        <option value="2">2eme annee</option>
+                        <option value="3">3eme annee</option>
+                        <option value="3">4eme annee</option>
+                        <option value="3">5eme annee</option>
 
                     </select>
                 </div>

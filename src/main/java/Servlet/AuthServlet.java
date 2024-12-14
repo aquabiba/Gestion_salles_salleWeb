@@ -3,6 +3,7 @@ package Servlet;
 import EJB.CoordinateurService;
 import EJB.ProfesseurService;
 import EJB.ResponsableService;
+import EJB.FiliereService;
 import jakarta.ejb.EJB;
 import jakarta.inject.Scope;
 import jakarta.servlet.ServletException;
@@ -11,11 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Coordinateur;
-import model.Professeur;
-import model.ResponsableSalle;
+import model.*;
 import EJB.SalleService ;
-import model.Salle;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +32,8 @@ public class AuthServlet extends HttpServlet {
     private ResponsableService responsableService;
     @EJB
     private SalleService salleService;
+    @EJB
+    private FiliereService filiereService;
 
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,7 +48,7 @@ public class AuthServlet extends HttpServlet {
 
         HttpSession session = req.getSession(); // Crée une nouvelle session si elle n'existe pas
         List<Salle> salles = salleService.getAllSalles();
-
+        List<Filiere> filieres = filiereService.getAllFilieres();
 
         try {
             Professeur professeur = professeurService.getProfesseurByEmail(login_email);
@@ -78,6 +78,8 @@ public class AuthServlet extends HttpServlet {
                     session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
                     session.setAttribute("coorMail",coordinateur.getEmail_Ut());
 
+                    // Récupération de l'identifiant de la filière et le niveau depuis la requête
+                    session.setAttribute("filieres", filieres);
 
                     resp.sendRedirect("coord.jsp");
                 }

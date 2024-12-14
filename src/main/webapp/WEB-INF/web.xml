@@ -17,36 +17,45 @@
         <url-pattern>/log</url-pattern>
 
     </servlet-mapping>
-<!--
     <servlet>
-=======
-    <servlet>
-        <description/>
->>>>>>> origin/main
-        <display-name>AuthServlet</display-name>
-        <servlet-name>log</servlet-name>
-        <servlet-class>Servlet.AuthServlet</servlet-class>
+        <servlet-name>EmploiServlet</servlet-name>
+        <servlet-class>Servlet.EmploiServlet</servlet-class>
     </servlet>
-<<<<<<< HEAD
-    <servlet>
-        <display-name>ProfServlet</display-name>
-        <servlet-name>prof</servlet-name>
-        <servlet-class>Servlet.ProfServlet</servlet-class>
-    </servlet>
-
-=======
->>>>>>> origin/main
     <servlet-mapping>
-        <servlet-name>log</servlet-name>
-        <url-pattern>/log</url-pattern>
+        <servlet-name>EmploiServlet</servlet-name>
+        <url-pattern>/empl</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
 
-    <servlet-mapping>
-        <servlet-name>prof</servlet-name>
-        <url-pattern>/prof</url-pattern>
-    </servlet-mapping>
-    -->
+    <!--
+        <servlet>
+    =======
+        <servlet>
+            <description/>
+    >>>>>>> origin/main
+            <display-name>AuthServlet</display-name>
+            <servlet-name>log</servlet-name>
+            <servlet-class>Servlet.AuthServlet</servlet-class>
+        </servlet>
+    <<<<<<< HEAD
+        <servlet>
+            <display-name>ProfServlet</display-name>
+            <servlet-name>prof</servlet-name>
+            <servlet-class>Servlet.ProfServlet</servlet-class>
+        </servlet>
+
+    =======
+    >>>>>>> origin/main
+        <servlet-mapping>
+            <servlet-name>log</servlet-name>
+            <url-pattern>/log</url-pattern>
+        </servlet-mapping>
+    <<<<<<< HEAD
+
+        <servlet-mapping>
+            <servlet-name>prof</servlet-name>
+            <url-pattern>/prof</url-pattern>
+        </servlet-mapping>
+        -->
 
     <!-- Configuration du filtre -->
     <!--  <filter>

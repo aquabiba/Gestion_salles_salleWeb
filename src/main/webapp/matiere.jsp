@@ -133,14 +133,14 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link text-white" >Filières</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/empl" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
+            </li>
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Filières</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/empl" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/mat"  id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére" class="nav-link active" >Matiére</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>

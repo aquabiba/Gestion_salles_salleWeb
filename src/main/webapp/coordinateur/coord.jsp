@@ -127,7 +127,7 @@
 </head>
 <body>
 <%
-    String coord = (String) session.getAttribute("coordinateurnom");
+    String coord = (String) session.getAttribute("coordinateurname");
     String role = (String) session.getAttribute("userRole");
     if (role == null) {
         response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
@@ -138,7 +138,7 @@
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">bonjour <%=coord%> </span>
+            <span class="fs-4">Bonjour <%=coord%> </span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
@@ -152,7 +152,7 @@
                 <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére"  class="nav-link text-white">Matiére</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
 

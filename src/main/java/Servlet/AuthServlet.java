@@ -68,7 +68,7 @@ public class AuthServlet extends HttpServlet {
                     session.setAttribute("filieres",filiereList);
                     session.setAttribute("reservations",reservations);
                     session.setAttribute("professeur", professeur.getId_prof());
-                    session.setAttribute("prof_name",professeur.getNom_Ut());
+                    session.setAttribute("NomProf",professeur.getNom_Ut());
                     session.setAttribute("userRole","Professeur");
                     req.getRequestDispatcher("/professeur/ListReservation.jsp").forward(req, resp);
                     //resp.sendRedirect(req.getContextPath()+"/professeur/ListReservation.jsp");

@@ -127,7 +127,7 @@
 </head>
 <body>
 <%
-    String coord = (String) session.getAttribute("coordinateurnom");
+    String coord = (String) session.getAttribute("coordinateurname");
     String role = (String) session.getAttribute("userRole");
     if (role == null) {
         response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");

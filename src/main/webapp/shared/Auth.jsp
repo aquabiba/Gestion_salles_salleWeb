@@ -12,7 +12,7 @@
         body{
             margin: 0;
             padding: 0;
-            background-image: url(../images/Ensapic.png);
+            background-image: url('${pageContext.request.contextPath}/images/Ensapic.png');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;

@@ -223,7 +223,7 @@
                 <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére"  class="nav-link text-white" >Matiére</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
 

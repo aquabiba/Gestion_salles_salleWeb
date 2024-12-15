@@ -149,7 +149,7 @@
     @SuppressWarnings("unchecked")
     List<Filiere> filieres= (List<Filiere>) session.getAttribute("filieres");
     @SuppressWarnings("unchecked")
-    List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneau") ;
+    List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneaux");
     String prof_name=(String) session.getAttribute("NomProf") ;
 %>
 <div id="container">
@@ -169,7 +169,7 @@
                 <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
             </li>
         </ul>
 

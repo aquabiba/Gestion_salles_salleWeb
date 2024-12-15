@@ -65,6 +65,7 @@ public class AppInit {
 
         Salle salle1=new Salle("F12","Bloc F","salle TD",25,responsableSalle);
         Salle salle2=new Salle("H11","Bloc H","salle Cours",60,responsableSalle);
+        Salle salle3=new Salle("K2","block K","salle TP/info",35,responsableSalle);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         InfosRes infosRes = new InfosRes("Lundi", LocalDate.parse("12/01/2024", formatter), LocalDate.parse("12/01/2025", formatter));

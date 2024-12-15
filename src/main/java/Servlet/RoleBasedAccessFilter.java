@@ -10,67 +10,94 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-//@WebFilter("/*") // Intercepter toutes les URLs, on filtrera en fonction du chemin ensuite
+@WebFilter("/*") // Le filtre s'applique à toutes les requêtes
 public class RoleBasedAccessFilter implements Filter {
+
+    private Map<String, String[]> roleAccessMap;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialisation du filtre si nécessaire
+        roleAccessMap = new HashMap<>();
+
+        // Définir les accès pour chaque rôle
+        roleAccessMap.put("Professeur", new String[]{"/professeur/", "/shared/"});
+        roleAccessMap.put("Coordinateur", new String[]{"/coordinateur/", "/shared/", "/empl"});
+        roleAccessMap.put("Responsable", new String[]{"/responsable/", "/shared/"});
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpServletResponse httpResp = (HttpServletResponse) response;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Récupération du rôle de l'utilisateur depuis la session (après login)
-        String userRole = (String) httpReq.getSession().getAttribute("userRole");
+        String requestURI = httpRequest.getRequestURI();
 
-        // URL demandée (path)
-        String requestURI = httpReq.getRequestURI();
-
-        // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
-        // (Ici, on considère qu'un utilisateur non connecté n'a pas de userRole en session)
-        if (userRole == null) {
-            httpResp.sendRedirect(httpReq.getContextPath() + "/login.jsp");
+        // Exclure la page de connexion et la page d'accès refusé du filtre
+        if (requestURI.contains("/log") || requestURI.contains("/accessDenied.jsp")) {
+            chain.doFilter(request, response); // Autoriser l'accès à ces pages
             return;
         }
 
-        // Vérification des accès selon le rôle
-        // Supposons les règles suivantes :
-        // - Le professeur peut accéder uniquement aux URLs sous /professeur/*
-        // - Le responsable des salles peut accéder uniquement aux URLs sous /responsableSalle/*
-        // - Le coordinateur peut accéder uniquement aux URLs sous /coordinateur/*
+        // Récupérer le rôle de l'utilisateur connecté depuis la session
+        String userRole = (String) httpRequest.getSession().getAttribute("userRole");
 
-        // Pour plus de souplesse, on peut effectuer la vérification par des conditions sur le pattern
-        if (requestURI.contains("/professeur/")) {
-            if (!userRole.equals("professeur")) {
-                // Pas le bon rôle pour cette zone, accès refusé
-                httpResp.sendRedirect(httpReq.getContextPath() + "/accessDenied.jsp");
-                return;
-            }
-        } else if (requestURI.contains("/responsableSalle/")) {
-            if (!userRole.equals("responsableSalle")) {
-                httpResp.sendRedirect(httpReq.getContextPath() + "/accessDenied.jsp");
-                return;
-            }
-        } else if (requestURI.contains("/coordinateur/")) {
-            if (!userRole.equals("coordinateur")) {
-                httpResp.sendRedirect(httpReq.getContextPath() + "/accessDenied.jsp");
-                return;
-            }
+        // Si l'utilisateur n'est pas connecté ou ne dispose pas d'un rôle valide, rediriger vers une page d'accès refusé
+        if (userRole == null) {
+            // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/log");
+            return;
         }
 
-        // Si on arrive ici, c’est que les conditions d’accès sont remplies, ou que l’URL
-        // ne se trouve pas dans un espace restreint. On passe donc la requête au reste de la chaîne.
+        // Vérifier les droits d'accès en fonction du rôle
+        if (!isAccessAllowed(userRole, requestURI)) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/shared/accessDenied.jsp");
+            return;
+        }
+        if (isPublicPath(requestURI)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+
+        // Si autorisé, continuer la chaîne de filtres
         chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-        // Ressources à libérer si nécessaire
+        // Libération des ressources si nécessaire
     }
+
+    /**
+     * Vérifie si un rôle est autorisé à accéder à une URL donnée.
+     *
+     * @param role       Rôle de l'utilisateur
+     * @param requestURI URI demandée
+     * @return true si autorisé, false sinon
+     */
+    private boolean isAccessAllowed(String role, String requestURI) {
+        String[] allowedPaths = roleAccessMap.get(role);
+        if (allowedPaths == null) {
+            return false;
+        }
+        for (String path : allowedPaths) {
+            if (requestURI.startsWith("/salleWEB-1.0-SNAPSHOT"+path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isPublicPath(String requestURI) {
+        return requestURI.contains("/log") ||
+                requestURI.contains("/accessDenied.jsp") ||
+                requestURI.contains("/css/") ||
+                requestURI.contains("/js/") ||
+                requestURI.contains("/images/");
+    }
+
 }

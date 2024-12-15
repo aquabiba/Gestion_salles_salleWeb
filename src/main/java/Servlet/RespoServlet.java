@@ -33,10 +33,7 @@ public class RespoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-//        HttpSession session = req.getSession();
-//        List<Salle> salles=salleService.getAllSalles();
-//        session.setAttribute("salles", salles);
-        resp.sendRedirect("Respo.jsp");
+        resp.sendRedirect("/responsable/Respo.jsp");
     }
 
     @Override
@@ -64,7 +61,7 @@ public class RespoServlet extends HttpServlet {
                 session.setAttribute("salles", salles);
                 String message = "Salle Ajouter avec Succes ";
                 req.setAttribute("message", message);
-                req.getRequestDispatcher("Respo.jsp").forward(req,resp);
+                req.getRequestDispatcher("/responsable/Respo.jsp").forward(req,resp);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,7 +74,7 @@ public class RespoServlet extends HttpServlet {
                 salleService.supprimerSalle(salle.getId_sal());
                 String message = "Salle supprimer avec Succes ";
                 req.setAttribute("message", message);
-                req.getRequestDispatcher("Respo.jsp").forward(req,resp);
+                req.getRequestDispatcher("/responsable/Respo.jsp").forward(req,resp);
             }
             catch(Exception e){
                 e.printStackTrace();

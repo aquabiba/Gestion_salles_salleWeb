@@ -13,12 +13,12 @@ import EJB.FiliereService ;
 import EJB.ProfesseurService ;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+
 
 import EJB.CreneauService ;
 import EJB.SalleService ;
-import EJB.LibDefService ;
-@WebServlet("/reservation")
+
+@WebServlet("/ListReservation")
 public class ProfServlet extends HttpServlet {
 
 
@@ -36,7 +36,7 @@ public class ProfServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("Prof.jsp");
+        req.getRequestDispatcher("/professeur/Prof.jsp").forward(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,7 +52,7 @@ public class ProfServlet extends HttpServlet {
         String sujet=req.getParameter("sujet");
         String jour=req.getParameter("jour");
 
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
         Salle salle1=salleService.getSalleByName(salle);
         Creneau creneau=new Creneau(creneaux,false,salle1);
         creneauService.addCreneau(creneau);
@@ -68,7 +68,7 @@ public class ProfServlet extends HttpServlet {
             reservationService.ajouterReservation(reservation);
             String message="Reservation ajoutée avec succées ";
             session.setAttribute("message",message);
-            resp.sendRedirect("Prof.jsp");
+            resp.sendRedirect(req.getContextPath() +"/professeur/Prof.jsp");
 
         }
 

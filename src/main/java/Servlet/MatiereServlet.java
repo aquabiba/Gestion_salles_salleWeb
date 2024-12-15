@@ -22,7 +22,7 @@ public class MatiereServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("matiere.jsp").forward(req, resp);
+        req.getRequestDispatcher("/coordinateur/matiere.jsp").forward(req, resp);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class MatiereServlet extends HttpServlet {
             matiereService.ajouterMatiere(matiere);
             resp.setContentType("text/html");
             resp.getWriter().write("<script>alert('Matière ajoutée avec succès .');window.location='matiere.jsp'</script>");
-
-            resp.sendRedirect("matiere.jsp");
+            req.getRequestDispatcher("/coordinateur/matiere.jsp").forward(req, resp);
+            //resp.sendRedirect("matiere.jsp");
         }
     }
 }

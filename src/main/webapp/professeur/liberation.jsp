@@ -77,8 +77,15 @@
   </style>
 </head>
 <%
-  String prof_name=(String) session.getAttribute("prof_name") ;
+  String prof_name=(String) session.getAttribute("NomProf") ;
+  @SuppressWarnings("unchecked")
   List<Reservation> reservations= (List<Reservation>) session.getAttribute("reservations") ;
+  String role = (String) session.getAttribute("userRole");
+  if (role == null) {
+    response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
+    return;
+  }
+  System.out.println(role);
 %>
 <body>
 <div id="container">
@@ -90,16 +97,16 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li  >
-        <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
+        <a href="${pageContext.request.contextPath}/professeur/ListReservation.jsp" class="nav-link text-white" >Liste Réservations</a>
       </li>
       <li>
-        <a href="Prof.jsp" id="Home" class="nav-link text-white" >Ajouter Réservation</a>
+        <a href="${pageContext.request.contextPath}/professeur/Prof.jsp" id="Home" class="nav-link text-white" >Ajouter Réservation</a>
       </li>
       <li class="nav-item" >
-        <a href="liberation.jsp" id="liberation"  class="nav-link active"  >Libération</a>
+        <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link active"  >Libération</a>
       </li>
       <li>
-        <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+        <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
       </li>
     </ul>
   </div>
@@ -138,8 +145,8 @@
         <input type="text" id="reservationId" name="idReservation" placeholder="ID" >
         <input type="date" id="startDate" name="dateDebut" placeholder="Date de Début">
         <input type="date" id="endDate" name="dateFin" placeholder="Date de Fin">
-        <button type="submit" onclick="liberationDefinitive()" name="liberationDef">Libération Définitive</button>
-        <button type="submit" class="danger" onclick="liberationExceptionnelle()" name="liberationExce">Libération Exceptionnelle</button>
+        <button type="submit"  name="liberationDef">Libération Définitive</button>
+        <button type="submit" class="danger"  name="liberationExce">Libération Exceptionnelle</button>
 
       </div>
       <%

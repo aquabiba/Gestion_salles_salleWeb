@@ -12,7 +12,7 @@
         body{
             margin: 0;
             padding: 0;
-            background-image: url(images/Ensapic.png);
+            background-image: url(../images/Ensapic.png);
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
@@ -21,6 +21,15 @@
             font-weight: bolder;
             color: white;
         }
+        .content-wrapper {
+            position: relative;
+            z-index: 1; /* Content above background */
+            filter: brightness(0.7); /* Apply filter to the content */
+            padding: 20px;
+            color: white;
+        }
+
+
         #d2{
             margin: 160px ;
             width: 500px;
@@ -80,7 +89,15 @@
     </style>
 </head>
 <body>
-<main>
+<%
+//    String role = (String) session.getAttribute("userRole");
+//    if (role == null) {
+//        response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
+//        return;
+//    }
+
+%>
+<main class="content-wrapper">
     <div id="container">
         <div id="d1">
             <h1><span style="color: brown;">Welcome</span> to our</h1>

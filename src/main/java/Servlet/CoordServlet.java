@@ -25,7 +25,7 @@ public class CoordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.getRequestDispatcher("coord.jsp").forward(req, resp);
+        req.getRequestDispatcher("/coordinateur/coord.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

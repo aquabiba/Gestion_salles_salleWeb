@@ -1,12 +1,11 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.Salle" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Responsable de Salle</title>
+    <title>Coordinateur Filiere Interface</title>
     <style>
         body {
             min-height: 100vh;
@@ -25,6 +24,9 @@
         #Logout:hover {
             background-color: #0d6efd;
         }
+        [data-bs-theme="dark"] .btn-toggle::before {
+            content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+        }
         .btn-toggle-nav a {
             padding: .1875rem .5rem;
             margin-top: .125rem;
@@ -35,18 +37,19 @@
 
         }
 
-        #About:hover {
+
+        #About:hover{
             background-color: #0d6efd;
         }
 
-        #container {
+        #container{
             display: flex;
-            justify-content: flex-start;
+            justify-content:flex-start;
         }
 
         .reservation-container {
             width: 100%;
-            margin-left: 650px;
+            margin-left: 350px;
             max-width: 500px;
             background-color: white;
             padding: 30px;
@@ -72,8 +75,7 @@
             color: #555;
         }
 
-        .form-group input,
-        .form-group select {
+        .form-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -81,8 +83,7 @@
             font-size: 14px;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             border-color: #4CAF50;
             outline: none;
         }
@@ -118,70 +119,69 @@
         .form-buttons button.reset:hover {
             background-color: #d32f2f;
         }
-        table {
-            width: 60%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-left: 450px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
+
+
+
+
     </style>
-
-    <%
-        String Responom=(String) session.getAttribute("responsableNom") ;
-        @SuppressWarnings("unchecked")
-        List<Salle> salles= (List<Salle>) session.getAttribute("salles") ;
-    %>
-
 </head>
 <body>
+<%
+    String coord = (String) session.getAttribute("coordinateurnom");
+    String role = (String) session.getAttribute("userRole");
+    if (role == null) {
+        response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
+        return;
+    }
+    System.out.println(role);
+%>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-
-      <span class="fs-4">Bonjour <%=Responom%>
-            </span>--%>
-
+            <span class="fs-4">Bonjour <%=coord%></span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Home</a>
-            </li>
-            <li >
-                <a href="Respo.jsp" id="Gestion_sal" class="nav-link text-white" aria-current="page">Gestion Des Salles</a>
-            </li>
-
             <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/coordinateur/coord.jsp"  class="nav-link text-white" >Filières</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/coordinateur/Emploi.jsp" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére" class="nav-link active" >Matiére</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
+
     </div>
 
-    <table>
-        <tr>
-            <th>Nom Salle</th>
-            <th>Localisation</th>
-            <th>Type Salle</th>
-            <th>Capacité</th>
+    <form class="reservation-container" action="mat" method="post">
+        <div class="reservation-container">
+            <h2 class="text-center">Saisie d'une Matière</h2>
+                <!-- Libellé de la matière -->
+                <div class="form-group mb-3">
+                    <label for="libelle">Libellé de la Matière</label>
+                    <input type="text" id="libelle" name="libelle" class="form-control" placeholder="Entrez le libellé de la matière" required>
+                </div>
+                <!-- Total des heures -->
+                <div class="form-group mb-3">
+                    <label for="totalHeures">Total des Heures</label>
+                    <input type="number" id="totalHeures" name="totalHeures" class="form-control" placeholder="Entrez le total des heures" min="1" required>
+                </div>
+                <!-- Bouton de soumission -->
+                <button type="submit" name="enregistrer" class="btn btn-primary">Enregistrer</button>
 
-        </tr>
-        <%for(Salle salle:salles){%>
-        <tr>
-            <th><%=salle.getNom_sal()%></th>
-            <th><%=salle.getLocalisation_sal()%></th>
-            <th><%=salle.getType_sal()%></th>
-            <th><%=salle.getCapacite_sal()%></th>
-        </tr>
-        <%  }%>
-    </table>
-
+        </div>
+    </form>
 
 </div>
+</body>
+</html>
+
+<body>
 
 </body>
 </html>

@@ -27,12 +27,12 @@ public class LiberationServlet extends HttpServlet {
     LibExeService libExeService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.getRequestDispatcher("/professeur/liberation.jsp").forward(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(false);
 
         String dateDebut =req.getParameter("dateDebut");
         String dateFin =req.getParameter("dateFin");
@@ -47,7 +47,8 @@ public class LiberationServlet extends HttpServlet {
             libDefService.ajouterLiberationDefinitive(liberation);
             String message="La réservation a été libérée définitivement avec succès !" ;
             session.setAttribute("message",message);
-            resp.sendRedirect("liberation.jsp");
+            //req.getRequestDispatcher("/professeur/liberation.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() +"/professeur/liberation.jsp");
         }
         if (liberationExce!=null){
             LocalDate dateDeb = LocalDate.parse(dateDebut);
@@ -56,7 +57,8 @@ public class LiberationServlet extends HttpServlet {
             libExeService.ajouterLibExe(liberationExceptionnelle);
             String message="La réservation a été libérer exceptionnelle avec succès !" ;
             session.setAttribute("message",message);
-            resp.sendRedirect("liberation.jsp");
+            //req.getRequestDispatcher("/professeur/liberation.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() +"/professeur/liberation.jsp");
         }
 
 

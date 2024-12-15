@@ -148,11 +148,11 @@
                 <a href="#" id="Home" class="nav-link active" aria-current="page">Home</a>
             </li>
             <li >
-                <a href="Respo.jsp" id="Gestion_sal" class="nav-link text-white" aria-current="page">Gestion Des Salles</a>
+                <a href="${pageContext.request.contextPath}/responsable/Respo.jsp" id="Gestion_sal" class="nav-link text-white" aria-current="page">Gestion Des Salles</a>
             </li>
 
             <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
     </div>

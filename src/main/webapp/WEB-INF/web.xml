@@ -6,31 +6,17 @@
     <display-name>AuthServlet</display-name>
     <display-name>ProfServlet</display-name>
     <display-name>CoordServlet</display-name>
-    <servlet>
-        <description/>
-        <display-name>AuthServlet</display-name>
-        <servlet-name>log</servlet-name>
-        <servlet-class>Servlet.AuthServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>log</servlet-name>
-        <url-pattern>/log</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>CS</servlet-name>
-        <servlet-class>Servlet.ProfServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CS</servlet-name>
-        <url-pattern>/CS</url-pattern>
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>categorie.jsp</welcome-file>
-    </welcome-file-list>
 
-    <welcome-file-list>
-        <welcome-file>Auth.jsp</welcome-file>
-    </welcome-file-list>
+    <filter>
+        <filter-name>authenticationFilter</filter-name>
+        <filter-class>Servlet.RoleBasedAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/professeur/*</url-pattern>
+        <url-pattern>/coordinateur/*</url-pattern>
+        <url-pattern>/responsable/*</url-pattern>
+    </filter-mapping>
 
 
 

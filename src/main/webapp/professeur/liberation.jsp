@@ -90,16 +90,16 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li  >
-        <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
+        <a href="${pageContext.request.contextPath}/professeur/ListReservation.jsp" class="nav-link text-white" >Liste Réservations</a>
       </li>
       <li>
-        <a href="Prof.jsp" id="Home" class="nav-link text-white" >Ajouter Réservation</a>
+        <a href="${pageContext.request.contextPath}/professeur/Prof.jsp" id="Home" class="nav-link text-white" >Ajouter Réservation</a>
       </li>
       <li class="nav-item" >
-        <a href="liberation.jsp" id="liberation"  class="nav-link active"  >Libération</a>
+        <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link active"  >Libération</a>
       </li>
       <li>
-        <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+        <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
       </li>
     </ul>
   </div>

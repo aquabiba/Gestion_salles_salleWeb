@@ -42,7 +42,7 @@ public class AuthServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.getRequestDispatcher("Auth.jsp").forward(req, resp);
+        req.getRequestDispatcher("/shared/Auth.jsp").forward(req, resp);
 
     }
 
@@ -69,25 +69,36 @@ public class AuthServlet extends HttpServlet {
                     session.setAttribute("reservations",reservations);
                     session.setAttribute("professeur", professeur.getId_prof());
                     session.setAttribute("prof_name",professeur.getNom_Ut());
-                    resp.sendRedirect("ListReservation.jsp");
+                    session.setAttribute("userRole","Professeur");
+                    resp.sendRedirect(req.getContextPath()+"/professeur/ListReservation.jsp");
                 } else {
-                    out.println("<h2>Mot de Passe Incorrecte !</h2>");
+                    resp.sendRedirect(req.getContextPath()+"/log");
+                    String message= " Mot de Passe Incorrecte !";
+                    session.setAttribute("motdepasseincorrecte",message);
                 }
             }
         } catch (Exception e) {
             out.println("<h2>Somethink is wrong !</h2>");
-
         }
         try{
             Coordinateur coordinateur=coordinateurService.getCoordinateurByEmail(login_email);
+
             if(coordinateur!=null) {
                 if(coordinateur.getPassword_Ut().equals(login_password)) {
+
+                    session.setAttribute("reservattions",reservationService.getAllReservations());
+
+
                     session.setAttribute("coordinateurid", coordinateur.getId_coord());
-//                    session.setAttribute("coordinateurnom",coordinateur.getNom_Ut());
-                    resp.sendRedirect("coord.jsp");
+                    session.setAttribute("coordinateurname", coordinateur.getNom_Ut());
+                    session.setAttribute("coorMail",coordinateur.getEmail_Ut());
+                    session.setAttribute("userRole","Coordinateur");
+                    resp.sendRedirect(req.getContextPath()+"/coordinateur/coord.jsp");
                 }
                 else {
-                    out.println("<h2>Mot de Passe Incorrecte !</h2>");
+                    resp.sendRedirect(req.getContextPath()+"/log");
+                    String message= " Mot de Passe Incorrecte !";
+                    session.setAttribute("motdepasseincorrecte",message);
                 }
             }
         }
@@ -101,16 +112,22 @@ public class AuthServlet extends HttpServlet {
                     session.setAttribute("salles",salles);
                     session.setAttribute("responsableId",responsableSalle.getId_resp());
                     session.setAttribute("responsableNom",responsableSalle.getNom_Ut());
-                    resp.sendRedirect("Respo.jsp");
+                    session.setAttribute("userRole","Responsable");
+                    resp.sendRedirect(req.getContextPath()+"/responsable/Respo.jsp");
                 }
                 else {
-                    out.println("<h2>Mot de Passe Incorrecte !</h2>");
+                    resp.sendRedirect(req.getContextPath()+"/log");
+                    String message= " Mot de Passe Incorrecte !";
+                    session.setAttribute("motdepasseincorrecte",message);
                 }
             }
         }
         catch (Exception e) {
             out.println("<h2>Somethink is wrong !</h2>");
         }
+        resp.sendRedirect(req.getContextPath()+"/log");
+        String message= "Username Not Found !";
+        session.setAttribute("motdepasseincorrecte",message);
 
     }
 

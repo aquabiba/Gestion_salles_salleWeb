@@ -136,30 +136,34 @@
 </head>
 <body>
 <%
+    @SuppressWarnings("unchecked")
     List<Salle> salles= (List<Salle>) session.getAttribute("salles");
+    @SuppressWarnings("unchecked")
     List<Matiere> matieres= (List<Matiere>) session.getAttribute("matieres");
+    @SuppressWarnings("unchecked")
     List<Filiere> filieres= (List<Filiere>) session.getAttribute("filieres");
+    @SuppressWarnings("unchecked")
     List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneaux") ;
     String prof_name=(String) session.getAttribute("prof_name") ;
 %>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Prof <%=prof_name%>></span>
+            <span class="fs-4">Prof <%=prof_name%> </span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li  >
-                <a href="ListReservation.jsp"  class="nav-link text-white" >Liste Réservations</a>
+                <a href="${pageContext.request.contextPath}/professeur/ListReservation.jsp" class="nav-link text-white" >Liste Réservations</a>
             </li>
             <li class="nav-item">
                 <a href="#" id="Home" class="nav-link active" aria-current="page">Ajouter Réservation</a>
             </li>
             <li>
-                <a href="liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
+                <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
             </li>
             <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
             </li>
         </ul>
 

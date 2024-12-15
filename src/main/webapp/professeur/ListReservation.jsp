@@ -1,11 +1,11 @@
-
+<%@ page import="java.util.List" %>
+<%@ page import="model.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Coordinateur Filiere Interface</title>
+    <title>Enseignant Interface</title>
     <style>
         body {
             min-height: 100vh;
@@ -49,13 +49,15 @@
 
         .reservation-container {
             width: 100%;
-            margin-left: 350px;
+            margin-left: 650px;
             max-width: 500px;
             background-color: white;
             padding: 30px;
             border-radius: 10px;
         }
-
+        .modify {
+            background-color: darkorange;
+        }
         .reservation-container h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -90,7 +92,8 @@
 
         .form-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
+            padding-left: 20px;
         }
 
         .form-buttons button {
@@ -105,6 +108,11 @@
         .form-buttons button.add {
             background-color: #4CAF50;
             color: white;
+            margin-left: 30px;
+        }
+        .form-buttons button.modify {
+            color: white;
+            margin-left: 30px;
         }
 
         .form-buttons button.add:hover {
@@ -113,6 +121,7 @@
 
         .form-buttons button.reset {
             background-color: #f44336;
+            margin-left: 30px;
             color: white;
         }
 
@@ -126,67 +135,82 @@
     </style>
 </head>
 <body>
+<%
+String prof_name=(String) session.getAttribute("prof_name") ;
+%>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Coordinateur Name</span>
+            <span class="fs-4">Prof <%=prof_name%></span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" id="Home" class="nav-link active" aria-current="page">Filières</a>
+                <a href="#" id="Home" class="nav-link active" aria-current="page">Liste Réservations</a>
+            </li>
+            <li >
+                <a href="${pageContext.request.contextPath}/professeur/Prof.jsp" class="nav-link text-white" >Ajouter Réservations</a>
             </li>
             <li>
-                <a href="Emploi.jsp" id="emploi" onclick="changecolor()" class="nav-link text-white">Emplois du Temps</a>
+                <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
             </li>
             <li>
-                <a href="matiere.jsp" id="Matiére" onclick="changecolor()" class="nav-link text-white">Matiére</a>
-            </li>
-            <li>
-                <a href="Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
             </li>
         </ul>
 
     </div>
 
-    <form class="reservation-container" action="filiere" method="post">
-        <div class="reservation-container">
-            <h2>Coordinateur de Filière</h2>
-            <form>
-                <div class="form-group">
-                    <label for="nomFiliere">Nom de la Filière</label>
-                    <input type="text" id="nomFiliere" name="nomFiliere" placeholder="Entrez le nom de la filière" required>
-                </div>
-                <div class="form-group">
-                    <label for="effectif">Effectif</label>
-                    <input type="number" id="effectif" name="effectif" placeholder="Entrez l'effectif" required>
-                </div>
-                <div class="form-group">
-                    <label for="niveau">Niveau</label>
-                    <select id="niveau" name="effectif" class="form-control" required>
-                        <option value="" disabled selected>Choisissez un niveau</option>
-                        <option value="1">1ère année</option>
-                        <option value="2">2ème année</option>
-                        <option value="3">3ème année</option>
-                        <option value="3">4ème année</option>
-                        <option value="3">5ème année</option>
+    <div class="container" style="margin-left: 400px; margin-top: 50px;">
+        <h2>Réservations Disponibles</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Salle</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
+                <th>créaneau</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                List<Reservation> reservations = (List<Reservation>) session.getAttribute("reservations");
 
-                    </select>
-                </div>
+                if (reservations != null && !reservations.isEmpty()) {
+                    for (Reservation reservation : reservations) {
+            %>
+            <tr>
+                <td><%=reservation.getId_res() %></td>
+                <%
+                    Creneau creaneau=reservation.getCreneau() ;
+                %>
+                <td><%= reservation.getCreneau() != null && (reservation.getCreneau()).getSalle() != null
+                        ? creaneau.getSalle().getNom_sal()
+                        : "Salle non définie" %></td>
+                <td><%= reservation.getInfos_res().getDateDebut() %></td>
+                <td><%= reservation.getInfos_res().getDateFin() %></td>
+                <td><%= reservation.getCreneau().getDesc_creneau()%></td>
+                <% if(reservation.getInfos_res().isStatus_res()==true){ %>
+                <td style="color: #4CAF50"><%=reservation.getInfos_res().isStatus_res()%></td>
+                <% }else {%>
+                <td style="color: #d32f2f"><%=reservation.getInfos_res().isStatus_res()%></td>
+                       <% }%>
 
-                <div class="form-buttons">
-                    <button type="submit" class="add">Ajouter</button>
-                    <button type="reset" class="reset">Supprimer</button>
-                </div>
-            </form>
-        </div>
-    </form>
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            <tr>
+                <td colspan="5" class="text-center">Aucune réservation disponible.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
 
 </div>
-</body>
-</html>
-
-<body>
-
 </body>
 </html>

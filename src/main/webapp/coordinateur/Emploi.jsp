@@ -214,13 +214,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/coordinateur/coord.jsp"  class="nav-link text-white" aria-current="page">Filières</a>
+                <a href="${pageContext.request.contextPath}/coord"  class="nav-link text-white" aria-current="page">Filières</a>
             </li>
             <li>
                 <a href="#" id="emploi"   class="nav-link active" >Emplois du Temps</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére"  class="nav-link text-white" >Matiére</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére"  class="nav-link text-white" >Matiére</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>

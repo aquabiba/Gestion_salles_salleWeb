@@ -60,7 +60,7 @@ public class EmploiServlet extends HttpServlet {
                 emploiService.ajouterEmploi(emploi);
             }
             // Redirection pour recharger les données
-            resp.sendRedirect(req.getContextPath() + "/coordinateur/Emploi.jsp");
+            resp.sendRedirect(req.getContextPath() + "/empl");
         }
     }
 

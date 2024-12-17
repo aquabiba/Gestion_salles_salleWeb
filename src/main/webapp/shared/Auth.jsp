@@ -90,11 +90,7 @@
 </head>
 <body>
 <%
-//    String role = (String) session.getAttribute("userRole");
-//    if (role == null) {
-//        response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
-//        return;
-//    }
+    String message = (String) session.getAttribute("message");
 
 %>
 <main class="content-wrapper">
@@ -133,6 +129,11 @@
             </form>
         </div>
     </div>
+    <%
+        if (message!=null){
+            session.removeAttribute("message");
+    %> <script>alert("<%=message%>");</script>
+    <%}%>
 </main>
 </body>
 </html>

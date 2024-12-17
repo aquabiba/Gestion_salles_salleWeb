@@ -156,13 +156,13 @@
                 <a href="${pageContext.request.contextPath}/professeur/ListReservation.jsp" id="Home" class="nav-link active" aria-current="page">Liste Réservations</a>
             </li>
             <li >
-                <a href="${pageContext.request.contextPath}/professeur/Prof.jsp" class="nav-link text-white" >Ajouter Réservations</a>
+                <a href="${pageContext.request.contextPath}/ListR" class="nav-link text-white" >Ajouter Réservations</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
+                <a href="${pageContext.request.contextPath}/liberation" id="liberation" class="nav-link text-white" >Libération</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Déconnexion</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
             </li>
         </ul>
 

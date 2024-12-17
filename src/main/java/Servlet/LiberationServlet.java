@@ -47,8 +47,8 @@ public class LiberationServlet extends HttpServlet {
             libDefService.ajouterLiberationDefinitive(liberation);
             String message="La réservation a été libérée définitivement avec succès !" ;
             session.setAttribute("message",message);
-            //req.getRequestDispatcher("/professeur/liberation.jsp").forward(req, resp);
-            resp.sendRedirect(req.getContextPath() +"/professeur/liberation.jsp");
+
+            resp.sendRedirect(req.getContextPath() +"/liberation");
         }
         if (liberationExce!=null){
             LocalDate dateDeb = LocalDate.parse(dateDebut);
@@ -57,8 +57,8 @@ public class LiberationServlet extends HttpServlet {
             libExeService.ajouterLibExe(liberationExceptionnelle);
             String message="La réservation a été libérer exceptionnelle avec succès !" ;
             session.setAttribute("message",message);
-            //req.getRequestDispatcher("/professeur/liberation.jsp").forward(req, resp);
-            resp.sendRedirect(req.getContextPath() +"/professeur/liberation.jsp");
+
+            resp.sendRedirect(req.getContextPath() +"/liberation");
         }
 
 

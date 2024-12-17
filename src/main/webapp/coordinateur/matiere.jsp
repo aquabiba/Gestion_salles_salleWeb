@@ -127,10 +127,11 @@
 </head>
 <body>
 <%
+
     String coord = (String) session.getAttribute("coordinateurname");
     String role = (String) session.getAttribute("userRole");
     if (role == null) {
-        response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
+        response.sendRedirect(request.getContextPath() + "/log");
         return;
     }
     System.out.println(role);
@@ -143,13 +144,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="${pageContext.request.contextPath}/coordinateur/coord.jsp"  class="nav-link text-white" >Filières</a>
+                <a href="${pageContext.request.contextPath}/coord"  class="nav-link text-white" >Filières</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/coordinateur/Emploi.jsp" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
+                <a href="${pageContext.request.contextPath}/empl" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére" class="nav-link active" >Matiére</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére" class="nav-link active" >Matiére</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>

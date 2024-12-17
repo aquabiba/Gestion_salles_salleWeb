@@ -141,17 +141,17 @@
             </li>
 
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/responsable/Respo.jsp" id="Gestion_sal" class="nav-link active" aria-current="page">Gestion Des Salles</a>
+                <a href="${pageContext.request.contextPath}/salle" id="Gestion_sal" class="nav-link active" aria-current="page">Gestion Des Salles</a>
             </li>
 
             <li>
 
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
     </div>
 
-    <form class="reservation-container" action="salleManagement" method="post">
+    <form class="reservation-container" action="salle" method="post">
         <h2>Gestion des Salles</h2>
         <div class="form-group">
             <label for="nomSalle">Nom de la Salle</label>
@@ -178,6 +178,17 @@
             <button  class="add" name="enregistrer">Enregistrer</button>
             <button  class="reset" name="supprimer">Supprimer</button>
         </div>
+
+<%
+    String message= (String) session.getAttribute("message");
+    if(message!=null){
+        session.removeAttribute("message");
+%>
+<script>
+    alert("<%= message %>");
+</script>
+
+<%}%>
     </form>
 </div>
 

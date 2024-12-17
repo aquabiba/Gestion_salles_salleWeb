@@ -55,6 +55,7 @@ public class AppInit {
 
         Filiere filiere1=new Filiere("Info2","2éme année",60,coordinateur1);
         Filiere filiere2=new Filiere("Meca3","3éme année",40,coordinateur1);
+        Filiere filiere3=new Filiere("Electrica","2eme annee",35,coordinateur1);
 
         Professeur professeur1=new Professeur("Quazdar","Imade","Quazdar.Imade@edu.uiz.ac.ma","1234","0654163",matiere1);
         Professeur professeur2=new Professeur("Chaouki","Brahim","Chaouki.Brahim@edu.uiz.ac.ma","1234","0654163",matiere2);
@@ -65,7 +66,44 @@ public class AppInit {
 
         Salle salle1=new Salle("F12","Bloc F","salle TD",25,responsableSalle);
         Salle salle2=new Salle("H11","Bloc H","salle Cours",60,responsableSalle);
-        Salle salle3=new Salle("K2","block K","salle TP/info",35,responsableSalle);
+        Salle salle300=new Salle("K2","block K","salle TP/info",35,responsableSalle);
+//        Salle salle1 = new Salle("A1", "Bloc A", "salle Cours", 60, responsableSalle);
+//        Salle salle2 = new Salle("B1", "Bloc B", "salle Cours", 60, responsableSalle);
+//        Salle salle3 = new Salle("C1", "Bloc C", "salle Cours", 60, responsableSalle);
+//        Salle salle4 = new Salle("D1", "Bloc D", "salle Cours", 60, responsableSalle);
+//        Salle salle5 = new Salle("E1", "Bloc E", "salle Cours", 60, responsableSalle);
+//        Salle salle6 = new Salle("F1", "Bloc F", "salle Cours", 60, responsableSalle);
+//        Salle salle7 = new Salle("G1", "Bloc G", "salle Cours", 60, responsableSalle);
+//        Salle salle8 = new Salle("H1", "Bloc H", "salle Cours", 60, responsableSalle);
+//        Salle salle9 = new Salle("I1", "Bloc I", "salle Cours", 60, responsableSalle);
+//        Salle salle10 = new Salle("J1", "Bloc J", "salle Cours", 60, responsableSalle);
+//
+//        Salle salle11 = new Salle("K1", "Bloc K", "salle TP", 35, responsableSalle);
+//        Salle salle12 = new Salle("L1", "Bloc L", "salle TP", 35, responsableSalle);
+//        Salle salle13 = new Salle("M1", "Bloc M", "salle TP", 35, responsableSalle);
+//        Salle salle14 = new Salle("N1", "Bloc N", "salle TP", 35, responsableSalle);
+//        Salle salle15 = new Salle("O1", "Bloc O", "salle TP", 35, responsableSalle);
+//
+//        Salle salle16 = new Salle("P1", "Bloc P", "salle TD", 25, responsableSalle);
+//        Salle salle17 = new Salle("Q1", "Bloc Q", "salle TD", 25, responsableSalle);
+//        Salle salle18 = new Salle("R1", "Bloc R", "salle TD", 25, responsableSalle);
+//        Salle salle19 = new Salle("S1", "Bloc S", "salle TD", 25, responsableSalle);
+//        Salle salle20 = new Salle("T1", "Bloc T", "salle TD", 25, responsableSalle);
+        for (int i = 1; i <= 10; i++) {
+            Salle salle = new Salle("H" + i, "Bloc " + (char) ('A' + i - 1), "salle Cours", 60, responsableSalle);
+            salleService.ajouterSalle(salle); // salleService.ajouterSalle(salle1)
+        }
+
+        for (int i = 1; i <= 5; i++) {
+            Salle salle = new Salle("K" + i, "Bloc " + (char) ('K' + i - 1), "salle TP", 35, responsableSalle);
+            salleService.ajouterSalle(salle); // salleService.ajouterSalle(salle2)
+        }
+
+        for (int i = 1; i <= 5; i++) {
+            Salle salle = new Salle("F" + i, "Bloc " + (char) ('P' + i - 1), "salle TD", 25, responsableSalle);
+            salleService.ajouterSalle(salle); // salleService.ajouterSalle(salle3)
+        }
+
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         InfosRes infosRes = new InfosRes("Lundi", LocalDate.parse("12/01/2024", formatter), LocalDate.parse("12/01/2025", formatter));
@@ -88,6 +126,8 @@ public class AppInit {
         Reservation reservation4=new Reservation(filiere1,infosRes2,professeur4,creneau1);
         Reservation reservation5=new Reservation(filiere1,infosRes4,professeur5,creneau2);
         Reservation reservation6=new Reservation(filiere1,infosRes3,professeur6,creneau4);
+        Reservation reservation7=new Reservation(filiere3,infosRes5,professeur3,creneau3);
+
 
         coordinateur.ajouterCoordinateur(coordinateur1);
 
@@ -95,9 +135,26 @@ public class AppInit {
 
         salleService.ajouterSalle(salle1);
         salleService.ajouterSalle(salle2);
+        salleService.ajouterSalle(salle300);
+
+//        salleService.ajouterSalle(salle1);
+//        salleService.ajouterSalle(salle2);
+//        salleService.ajouterSalle(salle3);
+//        salleService.ajouterSalle(salle4);
+//        salleService.ajouterSalle(salle5);
+//        salleService.ajouterSalle(salle6);
+//        salleService.ajouterSalle(salle7);
+//        salleService.ajouterSalle(salle8);
+//        salleService.ajouterSalle(salle9);
+//        salleService.ajouterSalle(salle10);
+//        salleService.ajouterSalle(salle11);
+//        salleService.ajouterSalle(salle12);
+//        salleService.ajouterSalle(salle13);
+
 
         filiereService.ajouterFiliere(filiere1);
         filiereService.ajouterFiliere(filiere2);
+        filiereService.ajouterFiliere(filiere3);
 
         matiere.ajouterMatiere(matiere1);
         matiere.ajouterMatiere(matiere2);
@@ -126,6 +183,7 @@ public class AppInit {
         reservationService.ajouterReservation(reservation4);
         reservationService.ajouterReservation(reservation5);
         reservationService.ajouterReservation(reservation6);
+        reservationService.ajouterReservation(reservation7);
 
         libDefService.LiberationAuto() ;
 

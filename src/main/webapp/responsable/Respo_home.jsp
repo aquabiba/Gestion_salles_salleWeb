@@ -150,7 +150,7 @@
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 
       <span class="fs-4">Bonjour <%=Responom%>
-            </span>--%>
+            </span>
 
         </a>
         <hr>
@@ -159,11 +159,11 @@
                 <a href="${pageContext.request.contextPath}/responsable/Respo_home.jsp" id="Home" class="nav-link active" aria-current="page">Home</a>
             </li>
             <li >
-                <a href="${pageContext.request.contextPath}/responsable/Respo.jsp" id="Gestion_sal" class="nav-link text-white" aria-current="page">Gestion Des Salles</a>
+                <a href="${pageContext.request.contextPath}/salle" id="Gestion_sal" class="nav-link text-white" aria-current="page">Gestion Des Salles</a>
             </li>
 
             <li>
-                <a href="${pageContext.request.contextPath}/shared/Auth.jsp" id="Logout" class="nav-link text-white">Logout</a>
+                <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
             </li>
         </ul>
     </div>

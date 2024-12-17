@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Salle, model.Matiere, model.Filiere, java.util.List" %>
 <%@ page import="model.Creneau" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,6 +138,11 @@
 </head>
 <body>
 <%
+    @SuppressWarnings("unchecked")
+    List<Salle> sallesDispo = (List<Salle>) session.getAttribute("salleDispo");
+    if (sallesDispo==null){
+        sallesDispo = new ArrayList<>(); // Initialiser une liste vide pour éviter le null
+    }
     String role = (String) session.getAttribute("userRole");
     if (role == null) {
         response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
@@ -145,12 +152,13 @@
     @SuppressWarnings("unchecked")
     List<Salle> salles= (List<Salle>) session.getAttribute("salles");
     @SuppressWarnings("unchecked")
-    List<Matiere> matieres= (List<Matiere>) session.getAttribute("matieres");
+    String matiere= (String) session.getAttribute("matiere");
     @SuppressWarnings("unchecked")
     List<Filiere> filieres= (List<Filiere>) session.getAttribute("filieres");
     @SuppressWarnings("unchecked")
     List<Creneau> creneaux=(List<Creneau>) session.getAttribute("creneaux");
     String prof_name=(String) session.getAttribute("NomProf") ;
+
 %>
 <div id="container">
     <div class="d-flex flex-column flex-shrink-0 p-3" style="position: fixed; width: 350px; height: 900px; background-color: rgb(214, 95, 95);">
@@ -163,10 +171,10 @@
                 <a href="${pageContext.request.contextPath}/professeur/ListReservation.jsp" class="nav-link text-white" >Liste Réservations</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/professeur/Prof.jsp" id="Home" class="nav-link active" aria-current="page">Ajouter Réservation</a>
+                <a href="${pageContext.request.contextPath}/ListR" id="Home" class="nav-link active" aria-current="page">Ajouter Réservation</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/professeur/liberation.jsp" id="liberation" class="nav-link text-white" >Libération</a>
+                <a href="${pageContext.request.contextPath}/liberation" id="liberation" class="nav-link text-white" >Libération</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Déconnexion</a>
@@ -175,7 +183,7 @@
 
     </div>
 
-    <form class="reservation-container" action="ListReservation" method="post">
+    <form class="reservation-container" action="ListR" method="post">
         <h2>Formulaire de Réservation</h2>
         <div class="form-group">
             <label for="filiere">Filière</label>
@@ -192,9 +200,9 @@
             <label for="matiere">Matière</label>
             <select id="matiere" name="matiere" class="form-control" required>
                 <option value="" disabled selected>Choisissez une matière</option>
-                <% for(Matiere matiere:matieres){%>
-                <option><%=matiere.getLibelle_mat()%></option>
-                <%}%>
+
+                <option><%=matiere%></option>
+
             </select>
         </div>
 
@@ -203,12 +211,18 @@
             <label >Créneaux</label>
             <select  name="creneaux" class="form-control" required>
                 <option value="" disabled selected>Choisissez un créneau</option>
-                <option>8:30 - 10:20 </option>
-                <option>10:40 - 12:30 </option>
-                <option>2:30 - 4:20 </option>
-                <option>4:40 - 6:30 </option>
+                <option value="8:30 - 10:20">8:30 - 10:20 </option>
+                <option value="10:40 - 12:30">10:40 - 12:30 </option>
+                <option value="2:30 - 4:20">2:30 - 4:20 </option>
+                <option value="4:40 - 6:30">4:40 - 6:30 </option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
+        </div>
+
+
         <div class="form-group">
             <label for="dateDebut">Date de Début</label>
             <input type="date" id="dateDebut" name="dateDebut" required>
@@ -222,29 +236,32 @@
             <label >Jour</label>
             <select  name="jour" class="form-control" required>
                 <option value="" disabled selected>Choisissez un jour </option>
-                <option>Lundi</option>
-                <option>Mardi</option>
-                <option>Mercredi</option>
-                <option>jeudi</option>
-                <option>vendredi</option>
-                <option>samedi</option>
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+                <option value="Samedi">Samedi</option>
+            </select>
+        </div>
+<%
+
+%>
+        <div class="form-buttons">
+            <button type="submit" class="add" name="Chercher" value="Chercher">chercher salle </button>
+        </div>
+        <div class="form-group mt-3">
+            <label>Salles Disponibles pour ce creneau</label>
+            <select name="salle" class="form-control" required>
+                <c:forEach var="salle" items="${sessionScope.salleDispo}">
+                    <option value="${salle.nom_sal}">${salle.nom_sal}</option>
+                </c:forEach>
+                <c:if test="${empty sessionScope.salleDispo}">
+                    <option>Aucune salle disponible</option>
+                </c:if>
             </select>
         </div>
 
-        <div class="form-group">
-            <label >Salle Disponible dans ce Créneaux</label>
-            <select  name="salle" class="form-control" required>
-                <option value="" disabled selected>Choisissez une salle </option>
-                <% for(Creneau creneau:creneaux){%>
-                <option><%=creneau.getSalle().getNom_sal()%></option>
-                <%}%>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="sujet">Sujet</label>
-            <input type="text" id="sujet" name="sujet" placeholder="Entrez le sujet" required>
-        </div>
 
 
         <div class="form-buttons">

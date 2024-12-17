@@ -40,26 +40,29 @@ public class CoordServlet extends HttpServlet {
 
         if (idCoord == null) {
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Coordinateur non trouvé dans la session. Veuillez vous reconnecter.');window.location='login.jsp'</script>");
+            resp.getWriter().write("<script>alert('Coordinateur non trouvé dans la session. Veuillez vous reconnecter.');'</script>");
+            resp.sendRedirect(req.getContextPath() + "/log");
             return;
         }
 
         Coordinateur coord = coordinateurService.getCoordinateurById(idCoord);
         if (coord == null) {
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Coordinateur introuvable en base de données.');window.location='coord.jsp'</script>");
-            return;
+            resp.getWriter().write("<script>alert('Coordinateur introuvable en base de données.');'</script>");
+            resp.sendRedirect(req.getContextPath() + "/log");
         }
         Filiere fil = new Filiere(nomFil,niveau,effectif,coord);
         if(ajouter!=null){
             filiereService.ajouterFiliere(fil);
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Filière ajoutée avec succès');window.location='coord.jsp'</script>");
+            resp.getWriter().write("<script>alert('Filière ajoutée avec succès');</script>");
+            resp.sendRedirect(req.getContextPath()+"/coord");
         } else if (supprimer!=null) {
             Filiere fil2 = filiereService.getFiliereByName(nomFil);
             filiereService.supprimerFiliere(fil2.getId_fil());
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Filière supprimée avec succès');window.location='coord.jsp'</script>");
+            resp.getWriter().write("<script>alert('Filière supprimée avec succès');'</script>");
+            resp.sendRedirect(req.getContextPath()+"/coord");
         }
         session.setAttribute("coord", coordinateurService.getCoordinateurById(idCoord));
 

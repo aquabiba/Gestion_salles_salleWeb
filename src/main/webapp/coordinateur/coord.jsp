@@ -130,7 +130,7 @@
     String coord = (String) session.getAttribute("coordinateurname");
     String role = (String) session.getAttribute("userRole");
     if (role == null) {
-        response.sendRedirect(request.getContextPath() + "/shared/Auth.jsp");
+        response.sendRedirect(request.getContextPath() + "/log");
         return;
     }
     System.out.println(role);
@@ -143,13 +143,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/coordinateur/coord.jsp" id="Home" class="nav-link active" >Filières</a>
+                <a href="${pageContext.request.contextPath}/coord" id="Home" class="nav-link active" >Filières</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/coordinateur/Emploi.jsp" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
+                <a href="${pageContext.request.contextPath}/empl" id="emploi"  class="nav-link text-white">Emplois du Temps</a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/coordinateur/matiere.jsp"  id="Matiére"  class="nav-link text-white">Matiére</a>
+                <a href="${pageContext.request.contextPath}/mat"  id="Matiére"  class="nav-link text-white">Matiére</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/log" id="Logout" class="nav-link text-white">Logout</a>
@@ -174,11 +174,11 @@
                     <label for="niveau">Niveau</label>
                     <select id="niveau" name="niveau" class="form-control" required>
                         <option value="" disabled selected>Choisissez un niveau</option>
-                        <option value="1">1ere annee</option>
-                        <option value="2">2eme annee</option>
-                        <option value="3">3eme annee</option>
-                        <option value="3">4eme annee</option>
-                        <option value="3">5eme annee</option>
+                        <option value="1ere annee">1ere annee</option>
+                        <option value="2eme annee">2eme annee</option>
+                        <option value="3eme annee">3eme annee</option>
+                        <option value="4eme annee">4eme annee</option>
+                        <option value="5eme annee">5eme annee</option>
 
                     </select>
                 </div>

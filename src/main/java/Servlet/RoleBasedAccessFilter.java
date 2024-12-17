@@ -23,9 +23,9 @@ public class RoleBasedAccessFilter implements Filter {
         roleAccessMap = new HashMap<>();
 
         // Définir les accès pour chaque rôle
-        roleAccessMap.put("Professeur", new String[]{"/professeur/", "/shared/"});
-        roleAccessMap.put("Coordinateur", new String[]{"/coordinateur/", "/shared/", "/empl"});
-        roleAccessMap.put("Responsable", new String[]{"/responsable/", "/shared/"});
+        roleAccessMap.put("Professeur", new String[]{"/professeur/", "/shared/","/ListR","/liberation"});
+        roleAccessMap.put("Coordinateur", new String[]{"/coordinateur/", "/shared/", "/empl","/coord","/mat"});
+        roleAccessMap.put("Responsable", new String[]{"/responsable/", "/shared/","/salle"});
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RoleBasedAccessFilter implements Filter {
         String requestURI = httpRequest.getRequestURI();
 
         // Exclure la page de connexion et la page d'accès refusé du filtre
-        if (requestURI.contains("/log") || requestURI.contains("/accessDenied.jsp")) {
+        if (requestURI.contains("/log") || requestURI.contains("/accessDenied.jsp") || requestURI.contains("/admin")) {
             chain.doFilter(request, response); // Autoriser l'accès à ces pages
             return;
         }

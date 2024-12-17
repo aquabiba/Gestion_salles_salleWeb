@@ -29,27 +29,26 @@ public class MatiereServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String enregistrer = req.getParameter("enregistrer");
         String libelle = req.getParameter("libelle");
-//        if(matiereService.getMatiereByName(libelle)!=null){
-//            resp.setContentType("text/html");
-//            resp.getWriter().write("<script>alert('Matière existe dèja dans base de données.');window.location='coord.jsp'</script>");
-//            return;
-//        }
+
         int totalHeures=Integer.parseInt(req.getParameter("totalHeures"));
         HttpSession session = req.getSession(false);
         String coordMail = (String) session.getAttribute("coorMail");
         if (coordMail == null) {
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Coordinateur introuvable en base de données.');window.location='matiere.jsp'</script>");
+            resp.getWriter().write("<script>alert('Coordinateur introuvable en base de données.');'</script>");
+            resp.sendRedirect(req.getContextPath() + "/log");
             return;
         }
         Coordinateur coord = coordinateurService.getCoordinateurByEmail(coordMail);
         Matiere matiere = new Matiere(libelle,totalHeures,coord);
         if (enregistrer!=null){
             matiereService.ajouterMatiere(matiere);
+
+
+            resp.sendRedirect(req.getContextPath()+"/mat");
+            //req.getRequestDispatcher("/mat").forward(req, resp);
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Matière ajoutée avec succès .');window.location='matiere.jsp'</script>");
-            req.getRequestDispatcher("/coordinateur/matiere.jsp").forward(req, resp);
-            //resp.sendRedirect("matiere.jsp");
+            resp.getWriter().write("<script>alert('Matière ajoutée avec succès .');</script>");
         }
     }
 }

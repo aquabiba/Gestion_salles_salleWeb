@@ -75,6 +75,8 @@ public class RespoServlet extends HttpServlet {
             Salle salle=salleService.getSalleByName(nomSalle);
             try{
                 salleService.supprimerSalle(salle.getId_sal());
+                List<Salle> salles=salleService.getAllSalles();
+                session.setAttribute("salles", salles);
                 String message = "Salle supprimer avec Succes ";
                 req.setAttribute("message", message);
                 resp.sendRedirect(req.getContextPath()+"/salle");

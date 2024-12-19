@@ -63,52 +63,77 @@ public class ProfServlet extends HttpServlet {
         String salle = req.getParameter("salle");
         String sujet = req.getParameter("sujet");
         String jour = req.getParameter("jour");
+        LocalDate datD = LocalDate.parse(dateDebut);
+        LocalDate datF = LocalDate.parse(dateFin);
 
-        // Recherche des salles disponibles
-        if (chercher != null) {
-            if (creneaux != null && jour != null) {
-                List<Salle> sallesDispo = creneauService.getSallesByDisponibilite(creneaux, jour);
+        if (datD.isBefore(datF)) {
+            // date1 est avant date2
 
-                if (sallesDispo == null || sallesDispo.isEmpty()) {
-                    sallesDispo = new ArrayList<>();
-                    session.setAttribute("message", "Aucune salle disponible pour ce créneau et jour.");
+
+            // Recherche des salles disponibles
+            if (chercher != null) {
+                if (creneaux != null && jour != null) {
+                    List<Salle> sallesDispo = creneauService.getSallesByDisponibilite(creneaux, jour);
+
+                    if (sallesDispo == null || sallesDispo.isEmpty()) {
+                        sallesDispo = new ArrayList<>();
+                        session.setAttribute("message", "Aucune salle disponible pour ce créneau et jour.");
+
+                    } else {
+                        session.setAttribute("message", "Salles disponibles trouvées.");
+                    }
+
+                    session.setAttribute("salleDispo", sallesDispo);
+                    resp.sendRedirect(req.getContextPath() + "/ListR");
 
                 } else {
-                    session.setAttribute("message", "Salles disponibles trouvées.");
+                    session.setAttribute("message", "Veuillez renseigner le créneau et le jour.");
+                    resp.sendRedirect(req.getContextPath() + "/ListR");
+                    return;
                 }
-
-                session.setAttribute("salleDispo", sallesDispo);
-                resp.sendRedirect(req.getContextPath() + "/ListR");
-
-            } else {
-                session.setAttribute("message", "Veuillez renseigner le créneau et le jour.");
-                resp.sendRedirect(req.getContextPath() + "/ListR");
-                return;
             }
-        }
 
-        // Ajouter une réservation
-        if (ajouter != null) {
-            try {
-                Salle salle1 = salleService.getSalleByName(salle);
-                Creneau creneau = new Creneau(creneaux, false, salle1);
-                creneauService.addCreneau(creneau);
+            // Ajouter une réservation
+            if (ajouter != null) {
+                try {
+                    Reservation res = reservationService.getReservationByCreneauJourFiliere(jour,creneaux,filiere_name);
+                    if (res != null) {
+                        session.setAttribute("message", "Cette salle est deja reservée par un autre professeur de cette filière.");
+                        resp.sendRedirect(req.getContextPath() + "/ListR");
+                        return;
+                    }
+                    Salle salle1 = salleService.getSalleByName(salle);
+                    Creneau creneau = new Creneau(creneaux, false, salle1);
+                    creneauService.addCreneau(creneau);
 
-                InfosRes infosRes = new InfosRes(jour, LocalDate.parse(dateDebut), LocalDate.parse(dateFin));
-                Filiere filiere = filiereService.getFiliereByName(filiere_name);
-                int id_professeur = (int) session.getAttribute("professeur");
-                Professeur professeur = professeurService.getProfesseurById(id_professeur);
+                    InfosRes infosRes = new InfosRes(jour, LocalDate.parse(dateDebut), LocalDate.parse(dateFin));
+                    Filiere filiere = filiereService.getFiliereByName(filiere_name);
+                    int id_professeur = (int) session.getAttribute("professeur");
+                    Professeur professeur = professeurService.getProfesseurById(id_professeur);
 
-                Reservation reservation = new Reservation(filiere, infosRes, professeur, creneau);
-                reservationService.ajouterReservation(reservation);
+                    Reservation reservation = new Reservation(filiere, infosRes, professeur, creneau);
+                    reservationService.ajouterReservation(reservation);
 
-                session.setAttribute("message", "Réservation ajoutée avec succès !");
-                resp.sendRedirect(req.getContextPath() + "/ListR");
-            } catch (Exception e) {
-                e.printStackTrace();
-                session.setAttribute("message", "Erreur lors de l'ajout de la réservation.");
-                resp.sendRedirect(req.getContextPath() + "/ListR");
+                    session.setAttribute("reservations", reservationService.getReservationByProf(professeur));
+                    session.setAttribute("message", "Réservation ajoutée avec succès !");
+                    resp.sendRedirect(req.getContextPath() + "/ListR");
+                    //il faut faire une fonction qui retourne une salle selon un jour une salle et un creneau
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    session.setAttribute("message", "Erreur lors de l'ajout de la réservation.");
+                    resp.sendRedirect(req.getContextPath() + "/ListR");
+                }
             }
+        } else if (datD.isAfter(datF)) {
+            // date1 est après date2
+            session.setAttribute("message", "Votre date est illogique !");
+            resp.sendRedirect(req.getContextPath() + "/ListR");
+        } else {
+            // les dates sont égales.
+            session.setAttribute("message", "Vous avez selectionner la meme date pour date fin et date debut !");
+            resp.sendRedirect(req.getContextPath() + "/ListR");
         }
     }
 }

@@ -9,6 +9,7 @@
     <style>
         body {
             min-height: 100vh;
+            font-family: "Tilt Neon" ;
         }
 
         main {
@@ -176,6 +177,16 @@
                 <button type="submit" name="enregistrer" class="btn btn-primary">Enregistrer</button>
 
         </div>
+        <%
+            String message= (String) session.getAttribute("message");
+            if(message!=null){
+                session.removeAttribute("message");
+        %>
+        <script>
+            alert("<%= message %>");
+        </script>
+
+        <%}%>
     </form>
 
 </div>

@@ -26,6 +26,7 @@ public class RoleBasedAccessFilter implements Filter {
         roleAccessMap.put("Professeur", new String[]{"/professeur/", "/shared/","/ListR","/liberation"});
         roleAccessMap.put("Coordinateur", new String[]{"/coordinateur/", "/shared/", "/empl","/coord","/mat"});
         roleAccessMap.put("Responsable", new String[]{"/responsable/", "/shared/","/salle"});
+        //roleAccessMap.put("");
     }
 
     @Override
@@ -34,6 +35,11 @@ public class RoleBasedAccessFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        // Set the headers to control the cache
+        httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+        httpResponse.setHeader("Pragma", "no-cache"); // HTTP 1.0
+        httpResponse.setDateHeader("Expires", 0); // Proxies.
 
         String requestURI = httpRequest.getRequestURI();
 
@@ -46,7 +52,7 @@ public class RoleBasedAccessFilter implements Filter {
         // Récupérer le rôle de l'utilisateur connecté depuis la session
         String userRole = (String) httpRequest.getSession().getAttribute("userRole");
 
-        // Si l'utilisateur n'est pas connecté ou ne dispose pas d'un rôle valide, rediriger vers une page d'accès refusé
+        // Si l'utilisateur n'est pas connecté ou ne dispose pas d'un rôle valide, rediriger vers une page d'accès refusé.
         if (userRole == null) {
             // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/log");
@@ -63,10 +69,10 @@ public class RoleBasedAccessFilter implements Filter {
             return;
         }
 
-
         // Si autorisé, continuer la chaîne de filtres
         chain.doFilter(request, response);
     }
+
 
     @Override
     public void destroy() {
@@ -77,7 +83,7 @@ public class RoleBasedAccessFilter implements Filter {
      * Vérifie si un rôle est autorisé à accéder à une URL donnée.
      *
      * @param role       Rôle de l'utilisateur
-     * @param requestURI URI demandée
+     * @param requestURI URI demandé
      * @return true si autorisé, false sinon
      */
     private boolean isAccessAllowed(String role, String requestURI) {

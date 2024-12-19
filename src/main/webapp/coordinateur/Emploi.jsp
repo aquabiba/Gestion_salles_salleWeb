@@ -22,6 +22,7 @@
     <style>
         body {
             min-height: 100vh;
+            font-family: "Tilt Neon" ;
         }
 
 
@@ -105,6 +106,7 @@
 
         .btn-create {
             margin-top: 20px;
+            margin-left: 350px;
         }
 
         .day-column {
@@ -426,7 +428,7 @@
         String niv = (String) session.getAttribute("niveau");
     %>
     <div class="text-center">
-        <button id="download-pdf" class="btn btn-primary btn-create" name="envoieMail">Envoyer L'emploi aux Professeurs</button>
+        <button id="download-pdf" class="btn btn-primary btn-create" name="envoieMail">Télécharger Emploi</button>
     </div>
 
 

@@ -121,12 +121,12 @@ public class AppInit {
 
 
         Reservation reservation1=new Reservation(filiere1,infosRes,professeur1,creneau);
-        Reservation reservation2=new Reservation(filiere1,infosRes1,professeur2,creneau2);
-        Reservation reservation3=new Reservation(filiere1,infosRes2,professeur3,creneau1);
+        Reservation reservation2=new Reservation(filiere1,infosRes1,professeur1,creneau2);
+        Reservation reservation3=new Reservation(filiere1,infosRes2,professeur1,creneau1);
         Reservation reservation4=new Reservation(filiere1,infosRes2,professeur4,creneau1);
         Reservation reservation5=new Reservation(filiere1,infosRes4,professeur5,creneau2);
-        Reservation reservation6=new Reservation(filiere1,infosRes3,professeur6,creneau4);
-        Reservation reservation7=new Reservation(filiere3,infosRes5,professeur3,creneau3);
+        Reservation reservation6=new Reservation(filiere1,infosRes3,professeur1,creneau4);
+        Reservation reservation7=new Reservation(filiere3,infosRes5,professeur1,creneau3);
 
 
         coordinateur.ajouterCoordinateur(coordinateur1);

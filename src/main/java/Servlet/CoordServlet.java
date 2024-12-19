@@ -55,8 +55,8 @@ public class CoordServlet extends HttpServlet {
         if(ajouter!=null){
             filiereService.ajouterFiliere(fil);
             resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Filière ajoutée avec succès');</script>");
-            resp.sendRedirect(req.getContextPath()+"/coord");
+            session.setAttribute("message", "filière ajoutée avec succès !");
+            resp.sendRedirect(req.getContextPath() + "/coord");
         } else if (supprimer!=null) {
             Filiere fil2 = filiereService.getFiliereByName(nomFil);
             filiereService.supprimerFiliere(fil2.getId_fil());

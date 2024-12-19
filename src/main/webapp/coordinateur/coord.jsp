@@ -9,6 +9,7 @@
     <style>
         body {
             min-height: 100vh;
+            font-family: "Tilt Neon" ;
         }
 
         main {
@@ -189,6 +190,16 @@
                 </div>
             </form>
         </div>
+        <%
+            String message= (String) session.getAttribute("message");
+            if(message!=null){
+                session.removeAttribute("message");
+        %>
+        <script>
+            alert("<%= message %>");
+        </script>
+
+        <%}%>
     </form>
 
 </div>

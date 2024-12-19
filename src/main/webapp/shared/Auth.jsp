@@ -17,9 +17,9 @@
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-weight: bolder;
             color: white;
+            font-family: "Tilt Neon" ;
         }
         .content-wrapper {
             position: relative;

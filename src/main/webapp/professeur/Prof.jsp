@@ -11,6 +11,7 @@
     <style>
         body {
             min-height: 100vh;
+            font-family: "Tilt Neon" ;
         }
 
         main {

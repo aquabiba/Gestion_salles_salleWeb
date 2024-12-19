@@ -47,8 +47,8 @@ public class MatiereServlet extends HttpServlet {
 
             resp.sendRedirect(req.getContextPath()+"/mat");
             //req.getRequestDispatcher("/mat").forward(req, resp);
-            resp.setContentType("text/html");
-            resp.getWriter().write("<script>alert('Matière ajoutée avec succès .');</script>");
+            session.setAttribute("message", "Matière ajouté avec succès !");
+            resp.sendRedirect(req.getContextPath() + "/mat");
         }
     }
 }
